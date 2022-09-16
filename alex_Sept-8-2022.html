@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 8-9-2022</title>
+    <!-- text-align, float, display, height, width, color, background-color margin padding  border text-decoration position using internal CSS only-->
+    <style>
+      body {
+        text-align: center;
+        align-content: center;
+      }
+      header {
+        position: sticky;
+        left: 0;
+        top: 0;
+        background-color: rgb(39, 9, 103);
+        color: #fff;
+      }
+      a {
+        text-decoration: none;
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        border: 2px;
+        align-items: center;
+      }
+      img {
+        width: 450px;
+        height: auto;
+        margin: 20px;
+      }
+      ul {
+        float: left;
+      }
+      ol {
+        float: right;
+      }
+      .spanClass {
+        background-color: rgb(28, 178, 243);
+        color: crimson;
+        font-style: italic;
+        font-weight: 600;
+        border: 1px #000 solid;
+        padding: 5px;
+      }
+      .uglyDiv {
+        padding: 20px;
+      }
+      .listDiv {
+        width: 400px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Start of body -->
+    <header>
+      This is all under the &ltheader&gt tag
+      <h1>Sample Heading h1</h1>
+    </header>
+    <!-- Start of section -->
+    <iframe
+      id="player"
+      title="sampleIframe"
+      type="text/html"
+      width="640"
+      height="390"
+      src="http://www.youtube.com/embed/M7lc1UVf-VE?enablejsapi=1&origin=http://example.com"
+    ></iframe>
+    <section>
+      <div class="uglyDiv">
+        <p>&ltsection&gt tag starts from here</p>
+        <strong>This is strong text</strong>
+        <span class="spanClass"
+          >&ltspan&gt here waiting for <em>CSS</em> to save me the Embarrassment
+          of being too <strike>UGLY</strike>
+        </span>
+      </div>
+      <div>
+        <a href="http://www.google.com" target="_blank">click me new tab</a>
+        <br />
+      </div>
+      <div>
+        <img
+          src="https://miro.medium.com/max/1200/1*-f538n974250kCKq3qGZ-Q.png"
+          alt="success image"
+        />
+      </div>
+      <div class="listDiv">
+        <!-- Unordered List -->
+        <ul>
+          <li>First</li>
+          <li>second</li>
+          <li>third</li>
+        </ul>
+        <!-- Ordered List -->
+        <ol>
+          <li>First</li>
+          <li>second</li>
+          <li>third</li>
+        </ol>
+      </div>
+      <!-- what is html without form -->
+      <div>
+        <form>
+          <table border="1">
+            <caption>
+              HTML Form
+            </caption>
+            <tr>
+              <th colspan="2">Table Headers here</th>
+            </tr>
+
+            <tr>
+              <td>Name:</td>
+              <td><input placeholder="Name" /></td>
+            </tr>
+            <tr>
+              <td>Country</td>
+              <td>
+                <select>
+                  <option value="">Singapore</option>
+                  <option value="">India</option>
+                  <option value="">Malaysia</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"><button>Submit</button></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </section>
+    <!-- Start of footer -->
+    <footer>
+      <div>&ltfooter&gt tag starts from here</div>
+
+      <blockquote cite="http://google.com">
+        For 500 years, stories are always interesting
+      </blockquote>
+      <div>
+        <p>&ltaudio&gt tag</p>
+        <audio controls>
+          <source
+            src="https://www.tutorialspoint.com/html/Kalimba.mp3"
+            type="audio/mpeg"
+          />
+          Your browser does not support the audio tag.
+        </audio>
+      </div>
+      <div>
+        <video width="320" height="240" controls preload="metadata">
+          <source
+            src="https://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.mp4"
+            type="video/mp4"
+          />
+          <source
+            src="https://iandevlin.github.io/mdn/video-player-with-captions/video/sintel-short.webm"
+            type="video/webm"
+          />
+          <track
+            label="English"
+            kind="subtitles"
+            srclang="en"
+            src="https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt/sintel-en.vtt"
+            default
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </footer>
+  </body>
+</html>

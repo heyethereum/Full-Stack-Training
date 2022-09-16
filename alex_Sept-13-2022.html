@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 13-9-2022</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      .container {
+        max-width: 500px;
+        border: 2px #000 solid;
+      }
+    </style>
+    <script>
+      function addition(a, b) {
+        document.getElementById("addition").innerHTML = `${a} + ${b} = ${
+          a + b
+        }`;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="addition"></h1>
+      <div>
+        <div class="row">
+          <div class="col text-primary fw-bold mb-3">Login Form</div>
+          <div class="row">
+            <label for="loginEmail" class="form-label">Email Address</label>
+            <input
+              type="email"
+              id="loginEmail"
+              class="form-control mb-3 mx-3"
+            />
+          </div>
+          <div class="row">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              class="form-control mb-3 mx-3"
+            />
+          </div>
+          <div>
+            <button type="button" class="btn btn-warning mb-5">Login</button>
+          </div>
+        </div>
+        <div class="row"></div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col text-primary fw-bold mb-3">Registration Form</div>
+        </div>
+        <div class="row mb-3 mx-1">
+          <label for="name" class="col-3">Name</label>
+          <input
+            id="name"
+            type="text"
+            class="col form-control"
+            placeholder="Your Name"
+          />
+        </div>
+        <div class="row mb-3 mx-1">
+          <label for="email" class="col-3">Email</label>
+          <input
+            id="email"
+            type="Email"
+            class="col form-control"
+            placeholder="Your Email"
+          />
+        </div>
+        <div class="row mb-3 mx-1">
+          <label for="password" class="col-3">password</label>
+          <input
+            id="password"
+            type="password"
+            class="col form-control"
+            placeholder="Your Password"
+          />
+        </div>
+        <div class="row mb-3 mx-1">
+          <label for="male" class="col-3">Gender</label>
+          <div class="col">
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              class="form-check-input"
+              placeholder="Your Name"
+            />
+            <label for="male" class="form-check-label col me-3">Male</label>
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              class="form-check-input"
+              placeholder="Your Name"
+            />
+            <label for="female" class="form-check-label col me-3">Female</label>
+            <input
+              type="radio"
+              id="notSay"
+              name="gender"
+              class="form-check-input"
+              placeholder="Your Name"
+            />
+            <label for="notSay" class="form-check-label col"
+              >Prefers Not to Say</label
+            >
+          </div>
+        </div>
+        <div class="row mb-3 mx-1">
+          <label for="country" class="col-3">Country</label>
+          <select name="" id="country" class="col">
+            <option value="" selected>Select your country</option>
+            <option value="">Singapore</option>
+            <option value="">Malaysia</option>
+            <option value="">India</option>
+            <option value="">China</option>
+          </select>
+        </div>
+        <div>
+          <button type="button" class="btn btn-warning my-3">Register</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var x = 2;
+    var y = 8;
+
+    addition(x, y);
+  </script>
+</html>
