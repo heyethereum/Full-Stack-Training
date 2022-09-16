@@ -132,7 +132,7 @@
 
             display.innerHTML =
               res.data.length === 0
-                ? (display.innerHTML = `<div class="row"><div class="col">No Data to Display</div></div>`)
+                ? `<div class="row"><div class="col">No Data to Display</div></div>`
                 : res.data.reduce(
                     (output, { first_name, last_name, email, avatar }) => {
                       return (
