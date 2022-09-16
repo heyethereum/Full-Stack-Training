@@ -101,17 +101,16 @@
           body: JSON.stringify(params),
         })
           .then((res) => res.json())
-          .then((res) => {
+          .then(({ name, job, id, createdAt }) => {
             display.innerHTML = `
               <div class="row">
                 <div class="col">
-                  Name: <strong>${res.name}</strong> 
-                  Job: <strong>${res.job}</strong> 
-                  inserted successfully with ID: <strong>${res.id}</strong> 
-                  created at: <strong>${res.createdAt}</strong>
+                  Name: <strong>${name}</strong> 
+                  Job: <strong>${job}</strong> 
+                  inserted successfully with ID: <strong>${id}</strong> 
+                  created at: <strong>${createdAt}</strong>
                 </div>
               </div>`;
-            console.log(res);
           })
           .catch((error) => {
             console.log(error);
