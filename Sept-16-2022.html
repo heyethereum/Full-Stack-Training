@@ -130,23 +130,22 @@
           .then((res) => {
             console.log(res.data);
 
-            if (res.data.length === 0) {
-              display.innerHTML = `<div class="row"><div class="col">No Data to Display</div></div>`;
-            } else {
-              display.innerHTML = res.data.reduce(
-                (output, { first_name, last_name, email, avatar }) => {
-                  return (
-                    output +
-                    `<div class="row my-3">
-                      <div class="col"><img src="${avatar}" alt="image"/></div>
-                      <div class="col">${first_name} ${last_name}</div>
-                      <div class="col">${email}</div>
-                    </div>`
+            display.innerHTML =
+              res.data.length === 0
+                ? (display.innerHTML = `<div class="row"><div class="col">No Data to Display</div></div>`)
+                : res.data.reduce(
+                    (output, { first_name, last_name, email, avatar }) => {
+                      return (
+                        output +
+                        `<div class="row my-3">
+                          <div class="col"><img src="${avatar}" alt="image"/></div>
+                          <div class="col">${first_name} ${last_name}</div>
+                          <div class="col">${email}</div>
+                        </div>`
+                      );
+                    },
+                    ""
                   );
-                },
-                ""
-              );
-            }
           })
           .catch((error) => {
             console.log(error);
