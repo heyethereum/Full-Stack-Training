@@ -95,11 +95,15 @@
           name: name,
           job: job,
         };
-        fetch(baseurl, { method: "POST", body: JSON.stringify(params) })
+        fetch(baseurl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        })
           .then((res) => res.json())
           .then((res) => {
             let result = `<div class="row"><div class="col">`;
-            result += `Name: <strong>${name}</strong> Job: <strong>${job}</strong> inserted successfully with ID: <strong>${res.id}</strong> created at: <strong>${res.createdAt}</strong>`;
+            result += `Name: <strong>${res.name}</strong> Job: <strong>${res.job}</strong> inserted successfully with ID: <strong>${res.id}</strong> created at: <strong>${res.createdAt}</strong>`;
             result += `</div></div>`;
             console.log(res);
 
