@@ -78,7 +78,7 @@
       </div>
     </div>
     <script type="text/javascript">
-      let baseurl = "https://reqres.in/api/users";
+      const baseurl = "https://reqres.in/api/users";
       const display = document.getElementById("result");
 
       // Insert user using POST
@@ -102,12 +102,16 @@
         })
           .then((res) => res.json())
           .then((res) => {
-            let result = `<div class="row"><div class="col">`;
-            result += `Name: <strong>${res.name}</strong> Job: <strong>${res.job}</strong> inserted successfully with ID: <strong>${res.id}</strong> created at: <strong>${res.createdAt}</strong>`;
-            result += `</div></div>`;
+            display.innerHTML = `
+              <div class="row">
+                <div class="col">
+                  Name: <strong>${res.name}</strong> 
+                  Job: <strong>${res.job}</strong> 
+                  inserted successfully with ID: <strong>${res.id}</strong> 
+                  created at: <strong>${res.createdAt}</strong>
+                </div>
+              </div>`;
             console.log(res);
-
-            display.innerHTML = result;
           })
           .catch((error) => {
             console.log(error);
@@ -127,20 +131,23 @@
           .then((res) => {
             console.log(res.data);
 
-            let result = "";
             if (res.data.length === 0) {
-              result =
-                '<div class="row"><div class="col">No Data to Display</div></div>';
+              display.innerHTML = `<div class="row"><div class="col">No Data to Display</div></div>`;
             } else {
-              res.data.forEach(({ first_name, last_name, email, avatar }) => {
-                result += `<div class="row my-3">`;
-                result += `<div class="col"><img src="${avatar}" alt="image"/></div>`;
-                result += `<div class="col">${first_name} ${last_name}</div>`;
-                result += `<div class="col">${email}</div>`;
-                result += `</div>`;
-              });
+              display.innerHTML = res.data.reduce(
+                (output, { first_name, last_name, email, avatar }) => {
+                  return (
+                    output +
+                    `<div class="row my-3">
+                      <div class="col"><img src="${avatar}" alt="image"/></div>
+                      <div class="col">${first_name} ${last_name}</div>
+                      <div class="col">${email}</div>
+                    </div>`
+                  );
+                },
+                ""
+              );
             }
-            display.innerHTML = result;
           })
           .catch((error) => {
             console.log(error);
