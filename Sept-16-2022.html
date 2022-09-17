@@ -91,10 +91,8 @@
           return;
         }
 
-        let params = {
-          name: name,
-          job: job,
-        };
+        let params = { name, job };
+
         fetch(baseurl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
