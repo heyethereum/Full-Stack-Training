@@ -75,8 +75,8 @@
           const ageMinute = twoDigits(ageDate.getMinutes());
           const ageSecond = twoDigits(ageDate.getSeconds());
 
-          display.innerHTML = `Age is ${ageYear} years ${ageMonth} months ${ageDay} days 
-                              ${ageHour} hours ${ageMinute} minutes ${ageSecond} seconds old`;
+          display.innerHTML = `Age is <strong>${ageYear} years</strong> ${ageMonth} months ${ageDay} days 
+                              ${ageHour} hours ${ageMinute} minutes <strong>${ageSecond} seconds</strong> old`;
         }, 1000);
       }
     </script>
