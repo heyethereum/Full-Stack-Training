@@ -53,6 +53,7 @@
       let handle = 0;
       function calAge() {
         const display = document.getElementById("result");
+        // get dob in milliseconds
         const dob = new Date(document.getElementById("dob").value).getTime();
         clearInterval(handle);
 
@@ -63,7 +64,9 @@
         }
 
         handle = setInterval(() => {
+          // diff in milliseconds
           const diff = Date.now() - dob;
+          // convert back to ISO 8601 format
           const ageDate = new Date(diff);
           const ageYear = Math.abs(ageDate.getFullYear() - 1970);
           const ageMonth = ageDate.getMonth();
