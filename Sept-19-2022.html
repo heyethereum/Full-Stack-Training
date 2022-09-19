@@ -49,16 +49,20 @@
         ).innerHTML = `${hours} : ${minutes} : ${seconds}`;
       }, 1000);
 
+      // handle to clear interval
+      let handle = 0;
       function calAge() {
         const display = document.getElementById("result");
         const dob = new Date(document.getElementById("dob").value).getTime();
+        clearInterval(handle);
 
-        if (Date.now() < dob) {
+        console.log(dob);
+        if (Date.now() < dob || isNaN(dob)) {
           display.innerHTML = `Please input valid Date`;
           return;
         }
 
-        setInterval(() => {
+        handle = setInterval(() => {
           const diff = Date.now() - dob;
           const ageDate = new Date(diff);
           const ageYear = Math.abs(ageDate.getFullYear() - 1970);
