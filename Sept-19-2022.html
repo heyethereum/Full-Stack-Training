@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>19 Sept 2022</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .container {
+        max-width: 800px;
+        border: 2px #000 solid;
+        border-radius: 20px;
+        padding: 15px;
+        margin: 20px auto;
+      }
+      strong {
+        color: #234465;
+      }
+      h1 {
+        color: #234465;
+        width: 75%;
+        margin: 0 auto;
+        padding: 5px;
+        text-align: center;
+      }
+    </style>
+    <script>
+      function twoDigits(number) {
+        return number <= 9 ? "0" + number : number;
+      }
+      setInterval(() => {
+        let d = new Date();
+        let hours = twoDigits(d.getHours());
+        let minutes = twoDigits(d.getMinutes());
+        let seconds = twoDigits(d.getSeconds());
+
+        document.getElementById(
+          "time"
+        ).innerHTML = `${hours} : ${minutes} : ${seconds}`;
+      }, 1000);
+
+      function calAge() {
+        const display = document.getElementById("result");
+        const dob = new Date(document.getElementById("dob").value).getTime();
+
+        if (Date.now() < dob) {
+          display.innerHTML = `Please input valid Date`;
+          return;
+        }
+
+        setInterval(() => {
+          const diff = Date.now() - dob;
+          const ageDate = new Date(diff);
+          const ageYear = Math.abs(ageDate.getFullYear() - 1970);
+          const ageMonth = ageDate.getMonth();
+          const ageDay = ageDate.getDate();
+          const ageHour = twoDigits(ageDate.getHours());
+          const ageMinute = twoDigits(ageDate.getMinutes());
+          const ageSecond = twoDigits(ageDate.getSeconds());
+
+          display.innerHTML = `Age is ${ageYear} years ${ageMonth} months ${ageDay} days 
+                              ${ageHour} hours ${ageMinute} minutes ${ageSecond} seconds old`;
+        }, 1000);
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 id="time"></h1>
+    </div>
+    <div class="container">
+      <h1>Age Calculator</h1>
+      <div class="row mt-3">
+        <div class="col-3">
+          <label class="form-control" for="date"
+            ><strong>Date of Birth:</strong></label
+          >
+        </div>
+        <div class="col-3">
+          <input class="form-control" id="dob" type="date" />
+        </div>
+        <div class="col">
+          <input
+            type="button"
+            value="Calculate Age"
+            class="btn btn-primary btn-md"
+            id="calAgeBtn"
+            onclick="calAge()"
+          />
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col blockquote" id="result"></div>
+      </div>
+    </div>
+  </body>
+</html>
