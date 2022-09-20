@@ -80,7 +80,7 @@
 
       function setLocal() {
         localStorage.setItem("local_data", input.value);
-        display.innerHTML = `Local_data: ${localStorage.getItem("local_data")}`;
+        getLocal();
         input.value = "";
       }
       function getLocal() {
@@ -88,9 +88,7 @@
       }
       function setSession() {
         sessionStorage.setItem("session_data", input.value);
-        display.innerHTML = `session_data: ${sessionStorage.getItem(
-          "session_data"
-        )}`;
+        getSession();
         input.value = "";
       }
       function getSession() {
