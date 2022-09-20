@@ -86,7 +86,7 @@
         const name = document.getElementById("name").value;
         const job = document.getElementById("job").value;
 
-        if (name === "" || job === "") {
+        if (!name || !job) {
           display.innerHTML = `Please enter <strong>name</strong> AND <strong>job</strong>`;
           return;
         }

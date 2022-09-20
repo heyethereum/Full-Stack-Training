@@ -79,6 +79,7 @@
       const input = document.getElementById("input");
 
       function setLocal() {
+        if (!input.value) return;
         localStorage.setItem("local_data", input.value);
         getLocal();
         input.value = "";
@@ -87,6 +88,7 @@
         display.innerHTML = `Local_data: ${localStorage.getItem("local_data")}`;
       }
       function setSession() {
+        if (!input.value) return;
         sessionStorage.setItem("session_data", input.value);
         getSession();
         input.value = "";
