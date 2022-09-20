@@ -1,0 +1,24 @@
+{
+  "name": "assignments",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Sept-14-2022.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/heyethereum/Full-Stack-Training.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/heyethereum/Full-Stack-Training/issues"
+  },
+  "homepage": "https://github.com/heyethereum/Full-Stack-Training#readme"
+}
