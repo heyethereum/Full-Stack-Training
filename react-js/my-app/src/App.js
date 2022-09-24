@@ -24,7 +24,6 @@ function App() {
           <Route path="/products" element={<SharedProductLayout />}>
             <Route index element={<Products />} />
             <Route path=":productId" element={<SingleProduct />} />
-            <Route path="*" element={<Error />} />
           </Route>
 
           <Route path="/login" element={<Login setUser={setUser}></Login>} />
