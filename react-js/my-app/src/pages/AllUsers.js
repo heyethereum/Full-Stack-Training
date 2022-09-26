@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useFetchData from "../hooks/useFetchData";
+import User from "./User";
 
 const AllUsers = () => {
   const baseURL = `https://reqres.in/api/users`;
   const [url, setUrl] = useState(baseURL);
-  const [show, setShow] = useState([]);
+  const [user, setUser] = useState();
   const { data } = useFetchData(url);
   const users = data.data;
-
-  const showArr = users?.map((user) => {
-    return { id: user.id, show: false };
-  });
-  useEffect(() => {
-    setShow(showArr);
-  }, []);
-
-  console.log("Hello", show);
-
-  const setShowID = (id) => {};
 
   console.log(users);
 
@@ -32,10 +22,11 @@ const AllUsers = () => {
       </div>
       <div className="container">
         {users?.length === 0 ? <h5>No users found</h5> : ""}
+        {user && <User user={user} />}
         {users?.map((user) => {
-          const { id, first_name, last_name, avatar, email } = user;
+          const { id, first_name, avatar } = user;
           return (
-            <div key={id} className="card" onClick={() => setShow(!show)}>
+            <div key={id} className="card" onClick={() => setUser(user)}>
               <div>
                 <img src={avatar} alt="" />
               </div>
@@ -43,12 +34,6 @@ const AllUsers = () => {
                 <span className="title">
                   <strong>{first_name}</strong>
                 </span>
-              </div>
-              <div className={show ? "show-card-details" : "hide-card-details"}>
-                <div>
-                  Full Name: {first_name} {last_name}
-                </div>
-                <div>Email: {email}</div>
               </div>
             </div>
           );
