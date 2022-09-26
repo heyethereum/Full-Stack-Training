@@ -26,7 +26,6 @@ const Login = ({ setUser }) => {
             type="text"
             className="form-input"
             id="name"
-            value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </div>
@@ -38,7 +37,6 @@ const Login = ({ setUser }) => {
             type="email"
             className="form-input"
             id="email"
-            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>

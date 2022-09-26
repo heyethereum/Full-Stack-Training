@@ -1,4 +1,4 @@
-const products = [
+let products = [
   {
     id: "recZkNf2kwmdBcqd0",
     name: "accent chair",

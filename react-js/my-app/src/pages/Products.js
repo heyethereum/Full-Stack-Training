@@ -5,11 +5,12 @@ const Products = () => {
   return (
     <section className="section">
       <div className="products">
-        {products.map((product) => {
+        {products?.map((product) => {
+          const { id, name } = product;
           return (
-            <article key={product.id}>
-              <h5>{product.name}</h5>
-              <Link to={`/products/${product.id}`}>more info</Link>
+            <article key={id}>
+              <h5>{name}</h5>
+              <Link to={`/products/${id}`}>more info</Link>
             </article>
           );
         })}
