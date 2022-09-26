@@ -21,7 +21,7 @@ const AllUsers = () => {
         </select>
       </div>
       <div className="container">
-        {users?.length === 0 ? <h5>No users found</h5> : ""}
+        {users?.length === 0 ? <h5>No Users Found!</h5> : ""}
         {user && <User user={user} />}
         {users?.map((user) => {
           const { id, first_name, avatar } = user;
