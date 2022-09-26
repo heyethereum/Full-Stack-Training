@@ -12,7 +12,7 @@ const AllUsers = () => {
   console.log(users);
 
   return (
-    <div>
+    <section className="section">
       <div>
         <select onChange={(e) => setUrl(`${baseURL}?page=${e.target.value}`)}>
           <option value="1">Page 1</option>
@@ -39,7 +39,7 @@ const AllUsers = () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

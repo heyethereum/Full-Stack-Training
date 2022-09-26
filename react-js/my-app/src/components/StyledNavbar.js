@@ -9,23 +9,23 @@ const StyledNavbar = () => {
         Home
       </NavLink>
       <NavLink
-        to="/about"
+        to="/postApi"
         className={({ isActive }) => (isActive ? "link active" : "link")}
       >
-        About
+        PostAPI
       </NavLink>
 
       <NavLink
-        to="/products"
+        to="/age"
         className={({ isActive }) => (isActive ? "link active" : "link")}
       >
-        Products
+        Age
       </NavLink>
       <NavLink
-        to="/login"
+        to="/users"
         className={({ isActive }) => (isActive ? "link active" : "link")}
       >
-        Login
+        Users
       </NavLink>
     </nav>
   );

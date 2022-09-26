@@ -8,15 +8,17 @@ const Age = () => {
     { name: "Bunny", age: 81 },
   ];
   return (
-    <div className="container">
-      {peopleArr.map(({ name, age }, index) => {
-        return (
-          <div key={index} className={age > 50 ? "red" : ""}>
-            Name: {name}, Age: {age}
-          </div>
-        );
-      })}
-    </div>
+    <section className="section">
+      <div className="container">
+        {peopleArr.map(({ name, age }, index) => {
+          return (
+            <div key={index} className={age > 50 ? "red" : ""}>
+              Name: {name}, Age: {age}
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 
