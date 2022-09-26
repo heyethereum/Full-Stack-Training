@@ -3,7 +3,7 @@ import React from "react";
 const User = ({ user }) => {
   const { first_name, last_name, avatar, email } = user;
   return (
-    <div>
+    <div style={{ margin: "30px 0 30px 20px" }}>
       <div>
         <img src={avatar} alt="" />
       </div>

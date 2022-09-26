@@ -24,7 +24,11 @@ const AllUsers = () => {
         </select>
       </div>
       <div className="container-flex">
-        {users?.length === 0 ? <h5>No Users Found!</h5> : ""}
+        {users?.length === 0 ? (
+          <h5 style={{ marginTop: "20px" }}>No Users Found!</h5>
+        ) : (
+          ""
+        )}
         {user && <User user={user} />}
         {users?.map((user) => {
           const { id, first_name, avatar } = user;
