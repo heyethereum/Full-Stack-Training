@@ -2,6 +2,8 @@
 ::after,
 ::before {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 /* fonts */
 /* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&family=Montserrat&display=swap"); */
@@ -292,4 +294,26 @@ ul {
 .product img {
   width: 200px;
   height: 150px;
+}
+.container {
+  max-width: fit-content;
+  border-radius: 20px;
+}
+.card {
+  border: 1px solid #000;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 20px;
+  margin: 20px;
+  max-width: 800px;
+}
+.hide-card-details {
+  display: none;
+}
+.show-card-details {
+  display: block;
+}
+.red {
+  color: #fff;
+  background-color: red;
 }
