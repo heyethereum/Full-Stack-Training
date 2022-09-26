@@ -37,11 +37,7 @@ const AllUsers = () => {
               <div>
                 <img src={avatar} alt="" />
               </div>
-              <div>
-                <span className="title">
-                  <strong>{first_name}</strong>
-                </span>
-              </div>
+              <div className="title">{first_name}</div>
             </div>
           );
         })}

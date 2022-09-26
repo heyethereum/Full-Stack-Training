@@ -1,14 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 
 const PostAPI = () => {
-  const [name, setName] = useState("");
-  const [job, setJob] = useState("");
+  const nameRef = useRef(null);
+  const jobRef = useRef(null);
   const [res, setRes] = useState();
+
+  const displayError = (obj, error) => {
+    obj.current.placeholder = error;
+    obj.current.focus();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name === "" || job === "") return;
+
+    const name = nameRef.current.value;
+    const job = jobRef.current.value;
+
+    if (name === "") {
+      displayError(nameRef, "Please enter your Name");
+      return;
+    }
+    if (job === "") {
+      displayError(jobRef, "Please enter your job");
+      return;
+    }
 
     const params = { name, job };
     const url = `https://reqres.in/api/users`;
@@ -19,6 +35,7 @@ const PostAPI = () => {
     } catch (error) {
       console.log(error);
     }
+    e.target.reset();
   };
 
   return (
@@ -29,23 +46,13 @@ const PostAPI = () => {
           <label htmlFor="name" className="form-label">
             name
           </label>
-          <input
-            type="text"
-            className="form-input"
-            id="name"
-            onChange={(e) => setName(e.target.value)}
-          />
+          <input type="text" className="form-input" id="name" ref={nameRef} />
         </div>
         <div className="form-row">
           <label htmlFor="job" className="form-label">
             Job
           </label>
-          <input
-            type="text"
-            className="form-input"
-            id="job"
-            onChange={(e) => setJob(e.target.value)}
-          />
+          <input type="text" className="form-input" id="job" ref={jobRef} />
         </div>
         <button type="submit" className="btn btn-block">
           Post

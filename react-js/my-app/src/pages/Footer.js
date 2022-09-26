@@ -1,7 +1,11 @@
 import React from "react";
 
 const Footer = () => {
-  return <section className="section">By Piggy Inu</section>;
+  return (
+    <section className="section">
+      <strong>By Piggy Inu</strong>
+    </section>
+  );
 };
 
 export default Footer;

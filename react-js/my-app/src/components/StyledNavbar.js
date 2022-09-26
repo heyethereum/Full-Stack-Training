@@ -4,26 +4,26 @@ const StyledNavbar = () => {
     <nav className="navbar">
       <NavLink
         to="/home"
-        className={({ isActive }) => (isActive ? "link active" : "link")}
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
         Home
       </NavLink>
       <NavLink
         to="/postApi"
-        className={({ isActive }) => (isActive ? "link active" : "link")}
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
         PostAPI
       </NavLink>
 
       <NavLink
         to="/age"
-        className={({ isActive }) => (isActive ? "link active" : "link")}
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
         Age
       </NavLink>
       <NavLink
         to="/users"
-        className={({ isActive }) => (isActive ? "link active" : "link")}
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
         Users
       </NavLink>
