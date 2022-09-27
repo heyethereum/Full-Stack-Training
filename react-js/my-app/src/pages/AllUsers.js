@@ -5,8 +5,10 @@ import Users from "./Users";
 const AllUsers = () => {
   const baseURL = `https://reqres.in/api/users`;
   const [url, setUrl] = useState(baseURL);
-  const { data } = useFetchData(url);
-  const users = data.data;
+  const {
+    data: { data: users },
+  } = useFetchData(url);
+  //const users = data.data;
 
   const handleChange = (e) => {
     setUrl(`${baseURL}?page=${e.target.value}`);
