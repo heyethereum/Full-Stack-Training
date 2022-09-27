@@ -33,11 +33,6 @@ export default class ClassAllUsers extends Component {
           </select>
         </div>
         <div className="container-flex">
-          {this.state.users?.length === 0 ? (
-            <h5 style={{ marginTop: "20px" }}>No Users Found!</h5>
-          ) : (
-            ""
-          )}
           {this.state.users && <Users users={this.state.users} />}
         </div>
       </section>

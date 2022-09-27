@@ -23,14 +23,7 @@ const AllUsers = () => {
           <option value="3">Page 3</option>
         </select>
       </div>
-      <div className="container-flex">
-        {users?.length === 0 ? (
-          <h5 style={{ marginTop: "20px" }}>No Users Found!</h5>
-        ) : (
-          ""
-        )}
-        {users && <Users users={users} />}
-      </div>
+      <div className="container-flex">{users && <Users users={users} />}</div>
     </section>
   );
 };
