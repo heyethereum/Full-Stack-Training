@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import User from "./User";
 
-const Users = (props) => {
-  const [user, setUser] = useState(props.user);
-  const users = props.users;
+const Users = ({ users }) => {
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
     setUser(null);
   }, [users]);
