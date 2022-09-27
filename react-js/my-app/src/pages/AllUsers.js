@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import useFetchData from "../hooks/useFetchData";
 import Users from "./Users";
-import User from "./User";
 
 const AllUsers = () => {
   const baseURL = `https://reqres.in/api/users`;
   const [url, setUrl] = useState(baseURL);
-  const [user, setUser] = useState(null);
   const { data } = useFetchData(url);
   const users = data.data;
 
   const handleChange = (e) => {
     setUrl(`${baseURL}?page=${e.target.value}`);
-    setUser(null);
   };
 
   return (
@@ -30,8 +27,7 @@ const AllUsers = () => {
         ) : (
           ""
         )}
-        {user && <User user={user} />}
-        {users && <Users users={users} setUser={setUser} />}
+        {users && <Users users={users} />}
       </div>
     </section>
   );

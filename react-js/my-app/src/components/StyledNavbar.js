@@ -1,5 +1,12 @@
 import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 const StyledNavbar = () => {
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("localeStorage")) setIsLogin(true);
+  }, []);
+
   return (
     <nav className="navbar">
       <NavLink
@@ -9,24 +16,34 @@ const StyledNavbar = () => {
         Home
       </NavLink>
       <NavLink
-        to="/postApi"
+        to="/classPostAPI"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
-        PostAPI
+        ClassPostAPI
       </NavLink>
 
       <NavLink
-        to="/age"
+        to="/classAge"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
-        Age
+        ClassAge
       </NavLink>
       <NavLink
-        to="/users"
+        to="/classAllUsers"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
-        Users
+        ClassAllUsers
       </NavLink>
+      {isLogin && (
+        <NavLink
+          to="/login"
+          className={({ isActive }) =>
+            isActive ? "link active title" : "link"
+          }
+        >
+          Logout
+        </NavLink>
+      )}
     </nav>
   );
 };

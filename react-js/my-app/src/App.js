@@ -11,8 +11,11 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import SharedProductLayout from "./pages/SharedProductLayout";
 import PostAPI from "./pages/PostAPI";
+import ClassPostAPIs from "./pages/ClassPostAPIs";
 import Age from "./pages/Age";
+import ClassAge from "./pages/ClassAge";
 import AllUsers from "./pages/AllUsers";
+import ClassAllUsers from "./pages/ClassAllUsers";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,8 +27,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/postApi" element={<PostAPI />} />
+          <Route path="/classPostAPI" element={<ClassPostAPIs />} />
+          <Route path="/classAge" element={<ClassAge />} />
           <Route path="/age" element={<Age />} />
           <Route path="/users" element={<AllUsers />} />
+          <Route path="/classAllUsers" element={<ClassAllUsers />} />
 
           <Route path="/products" element={<SharedProductLayout />}>
             <Route index element={<Products />} />

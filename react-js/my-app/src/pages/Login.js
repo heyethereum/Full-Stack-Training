@@ -7,6 +7,8 @@ const Login = ({ setUser }) => {
 
   const navigate = useNavigate();
 
+  localStorage.removeItem("localeStorage");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email) return;
