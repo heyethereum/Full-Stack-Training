@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import useFetchData from "../hooks/useFetchData";
+import Users from "./Users";
 import User from "./User";
 
 const AllUsers = () => {
@@ -30,17 +31,7 @@ const AllUsers = () => {
           ""
         )}
         {user && <User user={user} />}
-        {users?.map((user) => {
-          const { id, first_name, avatar } = user;
-          return (
-            <div key={id} className="card" onClick={() => setUser(user)}>
-              <div>
-                <img src={avatar} alt="" />
-              </div>
-              <div className="title">{first_name}</div>
-            </div>
-          );
-        })}
+        {users && <Users users={users} setUser={setUser} />}
       </div>
     </section>
   );
