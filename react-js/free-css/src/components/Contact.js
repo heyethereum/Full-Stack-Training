@@ -16,11 +16,11 @@ const Contact = () => {
       obj.className = "contactus";
     }
   };
-
   // looping through input to validate empty string
   const handleSubmit = (e) => {
     e.preventDefault();
-    for (const key in inputRefs.current) {
+    // reverse order to focus on first input
+    for (const key of Object.keys(inputRefs.current).reverse()) {
       validate(inputRefs.current[key].current);
     }
   };
