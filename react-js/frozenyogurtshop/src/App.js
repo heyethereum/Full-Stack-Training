@@ -1,4 +1,3 @@
-import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -17,7 +16,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/singlePost" element={<SinglePost />} />
+          <Route path="/singlePost/:id" element={<SinglePost />} />
+
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </BrowserRouter>

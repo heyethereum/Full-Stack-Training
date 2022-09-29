@@ -13,7 +13,7 @@ const Sidebar = () => {
         By {featured?.username} on {featured?.date}
       </span>
       <p>{featured?.content}</p>
-      <Link to="/singlePost" className="more">
+      <Link to={`/singlePost/${featured?.id}`} className="more">
         Read More
       </Link>
     </div>

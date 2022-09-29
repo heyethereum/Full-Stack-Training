@@ -6,7 +6,7 @@ const Header = ({ isActive }) => {
     <div id="header">
       <div>
         <Link to="/" className="logo">
-          <img src="images/logo.png" alt="" />
+          <img src="../images/logo.png" alt="" />
         </Link>
         <ul id="navigation">
           <li className={isActive === "home" ? "selected" : ""}>
@@ -30,7 +30,7 @@ const Header = ({ isActive }) => {
               className="secondary"
             >
               <li>
-                <Link to="/singlePost">Single post</Link>
+                <Link to="/singlePost/1">Single post</Link>
               </li>
             </ul>
           </li>

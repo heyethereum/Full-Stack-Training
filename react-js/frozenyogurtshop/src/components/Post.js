@@ -16,7 +16,7 @@ const Post = ({ post }) => {
           By {username} on {month} {day}, {year}
         </span>
         <p>{content}</p>
-        <Link to={`/singlePost`} className="more">
+        <Link to={`/singlePost/${id}`} className="more">
           Read More
         </Link>
       </div>

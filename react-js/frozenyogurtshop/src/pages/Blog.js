@@ -22,8 +22,7 @@ const Blog = () => {
               {data
                 .filter((post) => post.id <= 2)
                 .map((post) => {
-                  console.log(post);
-                  return <Post post={post} />;
+                  return <Post key={post.id} post={post} />;
                 })}
             </ul>
             <Link to="/blog" className="load">
