@@ -5,7 +5,7 @@ public class NumInt {
     NumInt numInt = new NumInt();
     for (int num : numInt.num) {
       if (num > 10)
-        System.out.printf("Number %d is greater than 10.%n", num);
+        System.err.printf("Number %d is greater than 10.%n", num);
       else
         System.out.printf("Number %d is lesser than 10.%n", num);
     }
