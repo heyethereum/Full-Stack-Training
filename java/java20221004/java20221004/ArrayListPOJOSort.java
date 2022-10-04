@@ -14,7 +14,9 @@ public class ArrayListPOJOSort {
     productList.add(product2);
     productList.add(product3);
 
-    Collections.sort(productList, new PriceComparator());
+    // Java 8 Comparator comparing, comparingInt, comparingDouble
+    Comparator<Product> priceComparator = Comparator.comparingDouble(Product::getPrice);
+    Collections.sort(productList, priceComparator);
     // sorting by price in ascending order
     for (Product product : productList) {
       System.out.printf("%s $%.2f%n", product.getName(), product.getPrice());
@@ -29,13 +31,15 @@ public class ArrayListPOJOSort {
 
 }
 
-class PriceComparator implements Comparator<Product> {
-  @Override
-  public int compare(Product o1, Product o2) {
-    return Double.compare(o1.getPrice(), o2.getPrice());
-  }
-}
-
+/*
+ * class PriceComparator implements Comparator<Product> {
+ * 
+ * @Override
+ * public int compare(Product o1, Product o2) {
+ * return Double.compare(o1.getPrice(), o2.getPrice());
+ * }
+ * }
+ */
 class NameComparator implements Comparator<Product> {
   @Override
   public int compare(Product o1, Product o2) {
