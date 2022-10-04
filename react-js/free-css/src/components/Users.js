@@ -7,7 +7,7 @@ const Users = ({ users }) => {
         const { id, avatar, first_name, last_name, email } = user;
 
         return (
-          <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+          <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6" key={id}>
             <div className="glasses_box">
               <figure>
                 <img src={avatar} alt="" />
