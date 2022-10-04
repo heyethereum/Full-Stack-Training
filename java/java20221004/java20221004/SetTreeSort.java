@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 public class SetTreeSort {
   public static void main(String[] args) {
-    TreeSet<User> userList = new TreeSet<User>();
+    TreeSet<User> userList = new TreeSet<>();
     userList.add(new User("Piggy", 41));
     userList.add(new User("Bunny", 25));
     userList.add(new User("Puppy", 23));
