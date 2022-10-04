@@ -14,13 +14,16 @@ public class ArrayListPOJOSort {
     productList.add(product2);
     productList.add(product3);
 
-    // Java 8 Comparator comparing, comparingInt, comparingDouble
-    Comparator<Product> priceComparator = Comparator.comparingDouble(Product::getPrice);
-    Collections.sort(productList, priceComparator);
+    // Java 8 Comparator comparing, comparingInt, comparingDouble, comparingLong
     // sorting by price in ascending order
-    for (Product product : productList) {
-      System.out.printf("%s $%.2f%n", product.getName(), product.getPrice());
-    }
+    Comparator<Product> priceComparator = Comparator.comparingDouble(Product::getPrice);
+    productList.sort(priceComparator);
+    System.out.println(productList);
+
+    // sorting by price in decending order with direct static method
+    productList.sort(Comparator.comparingDouble(Product::getPrice).reversed());
+    System.out.println(productList);
+
     // sorting by name
     Collections.sort(productList, new NameComparator());
     for (Product product : productList) {

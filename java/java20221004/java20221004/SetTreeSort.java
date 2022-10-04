@@ -14,9 +14,14 @@ public class SetTreeSort {
     userList.add(user3);
     userList.add(user4);
 
-    for (User user : userList) {
-      System.out.printf("User %s is %d years old%n", user.getName(), user.getAge());
-    }
+    System.out.println(userList);
+
+    /*
+     * for (User user : userList) {
+     * System.out.printf("User %s is %d years old%n", user.getName(),
+     * user.getAge());
+     * }
+     */
   }
 
 }

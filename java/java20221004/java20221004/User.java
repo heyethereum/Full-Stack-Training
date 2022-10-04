@@ -40,4 +40,9 @@ public class User implements Comparable<User> {
     return super.hashCode();
   }
 
+  @Override
+  public String toString() {
+    return "User {name=" + name + ", Age=" + age + "}";
+  }
+
 }
