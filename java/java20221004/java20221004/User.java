@@ -27,7 +27,17 @@ public class User implements Comparable<User> {
 
   @Override
   public int compareTo(User o) {
-
     return this.getName().compareTo(o.getName());
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    return super.equals(obj);
+  }
+
+  @Override
+  public int hashCode() {
+    return super.hashCode();
+  }
+
 }
