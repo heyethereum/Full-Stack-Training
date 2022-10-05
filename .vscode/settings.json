@@ -1,7 +1,8 @@
 {
   "java.project.sourcePaths": [
+    "java/java20221004",
     "java/java20221003",
     "java/java20220929",
-    "java/java20221004"
+    "java/java20221005"
   ]
 }

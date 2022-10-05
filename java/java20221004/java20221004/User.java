@@ -2,7 +2,15 @@ package java20221004;
 
 public class User implements Comparable<User> {
   private String name;
+
   private int age;
+  private String address;
+
+  public User(String name, int age, String address) {
+    this.name = name;
+    this.age = age;
+    this.address = address;
+  }
 
   public User(String name, int age) {
     this.name = name;
@@ -42,7 +50,15 @@ public class User implements Comparable<User> {
 
   @Override
   public String toString() {
-    return "User {name=" + name + ", Age=" + age + "}";
+    return "User {name=" + name + ", Age=" + age + ", Address=" + address + "}";
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
 }
