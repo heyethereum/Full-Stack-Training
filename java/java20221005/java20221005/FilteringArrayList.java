@@ -28,7 +28,7 @@ public class FilteringArrayList {
     // returns User if found else returns null
     User userNameStartwithA2 = userList.stream()
         .filter(user -> user.getName().toLowerCase().startsWith("a"))
-        .findFirst()
+        .findAny()
         .orElse(null);
     System.out.println(userNameStartwithA2);
   }
