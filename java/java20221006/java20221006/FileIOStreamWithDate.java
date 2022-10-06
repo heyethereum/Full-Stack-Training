@@ -24,12 +24,14 @@ public class FileIOStreamWithDate {
 
     // Java 7's try-with-resource statement without the need to close it in explicit
     // finally block
-    try (FileOutputStream fo = new FileOutputStream("java/java20221006/java20221006/output.txt", true)) {
+    try (FileOutputStream file = new FileOutputStream("java/java20221006/java20221006/output.txt", true)) {
       for (User user : userList) {
-        LocalDateTime timestamp = LocalDateTime.now();
-        String formattedTime = timestamp.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"));
-        String input = formattedTime + " - Name: " + user.getName() + ", Address: " + user.getAddress() + "\n";
-        fo.write(input.getBytes());
+        String formattedTime = LocalDateTime.now()
+            .format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"));
+
+        file.write(
+            String.format("%s - Name: %s, Address: %s%n", formattedTime, user.getName(), user.getAddress())
+                .getBytes());
       }
     } catch (FileNotFoundException e) {
       System.out.println("File not found!");

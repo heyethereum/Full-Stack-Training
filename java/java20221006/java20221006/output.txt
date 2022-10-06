@@ -43,3 +43,30 @@
 06-Oct-2022 15:29:12 - Name: Georgia, Address: Mohd Sultan
 06-Oct-2022 15:29:12 - Name: Hazel, Address: Tiong Bahru
 06-Oct-2022 15:29:12 - Name: Jill, Address: Tanglin
+06-Oct-2022 19:42:18 - Name: Anna, Address: Orchard
+06-Oct-2022 19:42:19 - Name: Bella, Address: Newton
+06-Oct-2022 19:42:19 - Name: Chloe, Address: Novena
+06-Oct-2022 19:42:19 - Name: Daisy, Address: Bugis
+06-Oct-2022 19:42:19 - Name: Eleanor, Address: Somerset
+06-Oct-2022 19:42:19 - Name: Faith, Address: River Valley
+06-Oct-2022 19:42:19 - Name: Georgia, Address: Mohd Sultan
+06-Oct-2022 19:42:19 - Name: Hazel, Address: Tiong Bahru
+06-Oct-2022 19:42:19 - Name: Jill, Address: Tanglin
+06-Oct-2022 19:47:05 - Name: Anna, Address: Orchard
+06-Oct-2022 19:47:05 - Name: Bella, Address: Newton
+06-Oct-2022 19:47:05 - Name: Chloe, Address: Novena
+06-Oct-2022 19:47:05 - Name: Daisy, Address: Bugis
+06-Oct-2022 19:47:05 - Name: Eleanor, Address: Somerset
+06-Oct-2022 19:47:05 - Name: Faith, Address: River Valley
+06-Oct-2022 19:47:05 - Name: Georgia, Address: Mohd Sultan
+06-Oct-2022 19:47:05 - Name: Hazel, Address: Tiong Bahru
+06-Oct-2022 19:47:05 - Name: Jill, Address: Tanglin
+06-Oct-2022 19:48:24 - Name: Anna, Address: Orchard
+06-Oct-2022 19:48:24 - Name: Bella, Address: Newton
+06-Oct-2022 19:48:24 - Name: Chloe, Address: Novena
+06-Oct-2022 19:48:24 - Name: Daisy, Address: Bugis
+06-Oct-2022 19:48:24 - Name: Eleanor, Address: Somerset
+06-Oct-2022 19:48:24 - Name: Faith, Address: River Valley
+06-Oct-2022 19:48:24 - Name: Georgia, Address: Mohd Sultan
+06-Oct-2022 19:48:24 - Name: Hazel, Address: Tiong Bahru
+06-Oct-2022 19:48:24 - Name: Jill, Address: Tanglin
