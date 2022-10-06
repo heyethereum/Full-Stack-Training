@@ -1,0 +1,27 @@
+06-10-2022 15:04:21 - Name: Anna, Address: Orchard
+06-10-2022 15:04:21 - Name: Bella, Address: Newton
+06-10-2022 15:04:21 - Name: Chloe, Address: Novena
+06-10-2022 15:04:21 - Name: Daisy, Address: Bugis
+06-10-2022 15:04:21 - Name: Eleanor, Address: Somerset
+06-10-2022 15:04:21 - Name: Faith, Address: River Valley
+06-10-2022 15:04:21 - Name: Georgia, Address: Mohd Sultan
+06-10-2022 15:04:21 - Name: Hazel, Address: Tiong Bahru
+06-10-2022 15:04:21 - Name: Jill, Address: Tanglin
+06-10-2022 15:04:37 - Name: Anna, Address: Orchard
+06-10-2022 15:04:37 - Name: Bella, Address: Newton
+06-10-2022 15:04:37 - Name: Chloe, Address: Novena
+06-10-2022 15:04:37 - Name: Daisy, Address: Bugis
+06-10-2022 15:04:37 - Name: Eleanor, Address: Somerset
+06-10-2022 15:04:37 - Name: Faith, Address: River Valley
+06-10-2022 15:04:37 - Name: Georgia, Address: Mohd Sultan
+06-10-2022 15:04:37 - Name: Hazel, Address: Tiong Bahru
+06-10-2022 15:04:37 - Name: Jill, Address: Tanglin
+06-10-2022 15:05:16 - Name: Anna, Address: Orchard
+06-10-2022 15:05:16 - Name: Bella, Address: Newton
+06-10-2022 15:05:16 - Name: Chloe, Address: Novena
+06-10-2022 15:05:16 - Name: Daisy, Address: Bugis
+06-10-2022 15:05:16 - Name: Eleanor, Address: Somerset
+06-10-2022 15:05:16 - Name: Faith, Address: River Valley
+06-10-2022 15:05:16 - Name: Georgia, Address: Mohd Sultan
+06-10-2022 15:05:16 - Name: Hazel, Address: Tiong Bahru
+06-10-2022 15:05:16 - Name: Jill, Address: Tanglin
