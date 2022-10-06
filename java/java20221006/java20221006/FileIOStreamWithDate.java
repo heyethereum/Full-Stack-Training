@@ -27,7 +27,7 @@ public class FileIOStreamWithDate {
     try (FileOutputStream fo = new FileOutputStream("java/java20221006/java20221006/output.txt", true)) {
       for (User user : userList) {
         LocalDateTime timestamp = LocalDateTime.now();
-        String formattedTime = timestamp.format(DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm:ss"));
+        String formattedTime = timestamp.format(DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss"));
         String input = formattedTime + " - Name: " + user.getName() + ", Address: " + user.getAddress() + "\n";
         fo.write(input.getBytes());
       }
