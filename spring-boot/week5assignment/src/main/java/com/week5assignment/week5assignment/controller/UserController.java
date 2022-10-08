@@ -28,13 +28,10 @@ public class UserController {
 
   @PostMapping("/userLogin")
   public ResponseEntity<GeneralResponse> findUser(@RequestBody User userRequest) {
-    GeneralResponse response = new GeneralResponse();
+    GeneralResponse response = userServiceImpl.findUser(userRequest.getUsername(), userRequest.getPassword());
 
-    User authenticateUser = userServiceImpl.findUser(userRequest);
-
-    String message = (authenticateUser == null) ? "User not found or Wrong password" : "Login Success!";
-    response.setMessage(message);
-
-    return (authenticateUser == null) ? ResponseEntity.badRequest().body(response) : ResponseEntity.ok(response);
+    return (response.getMessage().contains("Success"))
+        ? ResponseEntity.ok(response)
+        : ResponseEntity.badRequest().body(response);
   }
 }
