@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.week5assignment.week5assignment.model.User;
 
 public class Database {
-  public List<User> getData() {
+  public static List<User> getData() {
     List<User> response = new ArrayList<>();
     try {
       ObjectMapper mapper = new ObjectMapper();

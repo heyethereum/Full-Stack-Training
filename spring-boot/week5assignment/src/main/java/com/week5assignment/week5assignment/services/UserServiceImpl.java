@@ -12,14 +12,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> getallUsers() {
-    Database db = new Database();
-    return db.getData();
+    return Database.getData();
   }
 
   @Override
   public GeneralResponse findUser(String username, String password) {
-    Database db = new Database();
-    List<User> usersList = db.getData();
+    List<User> usersList = Database.getData();
 
     User authenticateUser = usersList.stream()
         .filter(user -> user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password))
