@@ -1,9 +1,15 @@
 {
   "java.project.sourcePaths": [
+    "java/java20221007",
+    "java/java20221006",
     "java/java20221005",
     "java/java20221004",
     "java/java20221003",
     "java/java20220929",
-    "java/java20221006"
-  ]
+    "spring-boot/week5Assignment/src/main/java/com/week5assignment/week5assignment"
+  ],
+  "boot-java.change-detection.on": true,
+  "java.debug.settings.hotCodeReplace": "auto",
+  "java.autobuild.enabled": true,
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

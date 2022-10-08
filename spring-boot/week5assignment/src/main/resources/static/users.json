@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "username": "Piggy",
+    "password": "12345",
+    "email": "piggy@gmail.com",
+    "address": "Orchard"
+  },
+  {
+    "id": 2,
+    "username": "Puppy",
+    "password": "56789",
+    "email": "puppy@gmail.com",
+    "address": "Newton"
+  },
+  {
+    "id": 3,
+    "username": "Bunny",
+    "password": "abcde",
+    "email": "bunny@gmail.com",
+    "address": "Novena"
+  },
+  {
+    "id": 4,
+    "username": "Kitty",
+    "password": "vwxyz",
+    "email": "Kitty@gmail.com",
+    "address": "River Valley"
+  }
+]
