@@ -29,9 +29,9 @@ public class SwaggerConfig {
         "Spring Boot Documentation",
         "1.0",
         "Spring Boot Service Terms",
-        new Contact("Piggy Inu", "", ""),
+        new Contact("Piggy Inu", "My URL", "piggy Email"),
         "General License",
-        "",
+        "License URL",
         Collections.emptyList());
   }
 }
