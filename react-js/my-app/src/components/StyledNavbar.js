@@ -21,13 +21,6 @@ const StyledNavbar = () => {
       >
         ClassPostAPI
       </NavLink>
-
-      <NavLink
-        to="/classAge"
-        className={({ isActive }) => (isActive ? "link active title" : "link")}
-      >
-        ClassAge
-      </NavLink>
       <NavLink
         to="/classAllUsers"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
@@ -44,6 +37,12 @@ const StyledNavbar = () => {
           Logout
         </NavLink>
       )}
+      <NavLink
+        to="/findUserById"
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
+      >
+        FindUserById
+      </NavLink>
     </nav>
   );
 };

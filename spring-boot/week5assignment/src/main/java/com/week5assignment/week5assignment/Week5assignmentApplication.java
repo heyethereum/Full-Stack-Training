@@ -3,7 +3,6 @@ package com.week5assignment.week5assignment;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.core.env.MapPropertySource;

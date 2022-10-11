@@ -16,6 +16,7 @@ import Age from "./pages/Age";
 import ClassAge from "./pages/ClassAge";
 import AllUsers from "./pages/AllUsers";
 import ClassAllUsers from "./pages/ClassAllUsers";
+import FindUserById from "./pages/FindUserById";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -32,6 +33,7 @@ function App() {
           <Route path="/age" element={<Age />} />
           <Route path="/users" element={<AllUsers />} />
           <Route path="/classAllUsers" element={<ClassAllUsers />} />
+          <Route path="/findUserById" element={<FindUserById />} />
 
           <Route path="/products" element={<SharedProductLayout />}>
             <Route index element={<Products />} />

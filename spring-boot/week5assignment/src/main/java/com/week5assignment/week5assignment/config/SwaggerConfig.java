@@ -18,7 +18,7 @@ public class SwaggerConfig {
   public Docket swaggerConfiguration() {
     return new Docket(DocumentationType.SWAGGER_2)
         .select()
-        .paths(PathSelectors.ant("/week5Assignment/*"))
+        .paths(PathSelectors.ant("/week5Assignment/**"))
         .apis(RequestHandlerSelectors.basePackage("com.week5assignment.week5assignment"))
         .build()
         .apiInfo(apiCustomData());
