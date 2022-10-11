@@ -29,7 +29,7 @@ public class UserController {
   }
 
   @GetMapping("/user/{userid}")
-  public ResponseEntity<?> getUser(@PathVariable Long userid) {
+  public ResponseEntity<Object> getUser(@PathVariable Long userid) {
     try {
       return ResponseEntity.ok(userServiceImpl.findUserById(userid));
     } catch (Exception e) {
@@ -40,7 +40,7 @@ public class UserController {
   }
 
   @PostMapping("/userLoginParams")
-  public ResponseEntity<?> loginWithParams(@RequestParam String email, @RequestParam String password) {
+  public ResponseEntity<Object> loginWithParams(@RequestParam String email, @RequestParam String password) {
     try {
       return ResponseEntity.ok(userServiceImpl.findUserWithEmail(email, password));
     } catch (Exception e) {
