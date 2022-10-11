@@ -29,14 +29,16 @@ public class UserController {
   }
 
   @GetMapping("/user/{userid}")
-  public ResponseEntity<Object> getUser(@PathVariable Long userid) {
+  public ResponseEntity<Object> getUser(@PathVariable String userid) {
+    GeneralResponse response = new GeneralResponse();
     try {
-      return ResponseEntity.ok(userServiceImpl.findUserById(userid));
+      return ResponseEntity.ok(userServiceImpl.findUserById(Long.valueOf(userid)));
+    } catch (NumberFormatException e) {
+      response.setMessage("Invalid User ID");
     } catch (Exception e) {
-      GeneralResponse response = new GeneralResponse();
       response.setMessage(e.getMessage());
-      return ResponseEntity.badRequest().body(response);
     }
+    return ResponseEntity.badRequest().body(response);
   }
 
   @PostMapping("/userLoginParams")
