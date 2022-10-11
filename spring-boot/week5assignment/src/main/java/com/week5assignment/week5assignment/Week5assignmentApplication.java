@@ -21,10 +21,8 @@ public class Week5assignmentApplication {
 		Map<String, Object> env = Dotenv.load()
 				.entries()
 				.stream()
-				.collect(
-						Collectors.toMap(DotenvEntry::getKey, DotenvEntry::getValue));
-		new SpringApplicationBuilder(
-				Week5assignmentApplication.class)
+				.collect(Collectors.toMap(DotenvEntry::getKey, DotenvEntry::getValue));
+		new SpringApplicationBuilder(Week5assignmentApplication.class)
 				.environment(new StandardEnvironment() {
 					@Override
 					protected void customizePropertySources(MutablePropertySources propertySources) {
