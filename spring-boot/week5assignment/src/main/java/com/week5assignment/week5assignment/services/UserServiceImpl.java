@@ -4,18 +4,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.week5assignment.week5assignment.Request.UserRequest;
 import com.week5assignment.week5assignment.Response.GeneralResponse;
 import com.week5assignment.week5assignment.exception.CustomException;
 import com.week5assignment.week5assignment.model.User;
+import com.week5assignment.week5assignment.model.UserModel;
+import com.week5assignment.week5assignment.repo.UserRepo;
 
 @Service
 public class UserServiceImpl implements UserService {
+  @Autowired
+  UserRepo userRepo;
 
   @Override
-  public List<User> getallUsers() {
-    return Database.getData();
+  public List<UserModel> getallUsers() {
+    return userRepo.findAll();
+  }
+
+  @Override
+  public UserModel findUserModelById(long id) throws CustomException {
+    return userRepo.findById(id).orElseThrow(() -> new CustomException("User not found!"));
   }
 
   @Override
@@ -53,5 +64,68 @@ public class UserServiceImpl implements UserService {
         .filter(user -> user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password))
         .findAny()
         .orElseThrow(() -> new CustomException("User not found or Incorrect password!"));
+  }
+
+  @Override
+  public boolean createUser(UserRequest userRequest) throws CustomException {
+    try {
+      Optional<UserModel> email = userRepo.getUserByEmail(userRequest.getEmail());
+      if (email.isPresent())
+        throw new CustomException("Email already exists");
+
+      UserModel newUser = new UserModel();
+      newUser.setName(userRequest.getName());
+      newUser.setEmail(userRequest.getEmail());
+      newUser.setPhone(userRequest.getPhone());
+      newUser.setAddress(userRequest.getAddress());
+      newUser.setPassword(userRequest.getPassword());
+      userRepo.save(newUser);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw e;
+    }
+    return true;
+  }
+
+  @Override
+  public UserModel userLogin(String email, String password) throws CustomException {
+    return userRepo.getUserByEmailAndPassword(email, password)
+        .orElseThrow(() -> new CustomException("Wrong email or password!"));
+  }
+
+  @Override
+  public boolean updateUser(UserRequest userRequest) throws CustomException {
+    try {
+      UserModel user = userRepo.findById(userRequest.getId())
+          .orElseThrow(() -> new CustomException("No User Found!"));
+      if (userRequest.getEmail() != null && !userRequest.getEmail().equals(""))
+        user.setEmail(userRequest.getEmail());
+      if (userRequest.getPhone() != null && !userRequest.getPhone().equals(""))
+        user.setPhone(userRequest.getPhone());
+      if (userRequest.getName() != null && !userRequest.getName().equals(""))
+        user.setName(userRequest.getName());
+      if (userRequest.getAddress() != null && !userRequest.getAddress().equals(""))
+        user.setAddress(userRequest.getAddress());
+      if (userRequest.getPassword() != null && !userRequest.getPassword().equals(""))
+        user.setPassword(userRequest.getPassword());
+
+      userRepo.save(user);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw e;
+    }
+    return true;
+  }
+
+  @Override
+  public boolean deleteUser(Long id) throws CustomException {
+    try {
+      UserModel user = userRepo.findById(id).orElseThrow(() -> new CustomException("User Not Found!"));
+      userRepo.delete(user);
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw e;
+    }
+    return true;
   }
 }

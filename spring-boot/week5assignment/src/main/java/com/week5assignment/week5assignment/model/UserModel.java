@@ -1,32 +1,28 @@
 package com.week5assignment.week5assignment.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class User {
-
+@Entity
+@Table(name = "users")
+public class UserModel {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private String username;
+  private String name;
   @JsonIgnore
   private String password;
   private String email;
   private String address;
+  private String phone;
 
-  public User() {
+  public UserModel() {
     super();
-  }
-
-  public User(String username, String email, String address) {
-    this.username = username;
-    this.email = email;
-    this.address = address;
-  }
-
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
   }
 
   public String getEmail() {
@@ -59,6 +55,22 @@ public class User {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
 }
