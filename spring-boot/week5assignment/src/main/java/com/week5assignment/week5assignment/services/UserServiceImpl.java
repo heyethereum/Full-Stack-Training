@@ -2,6 +2,7 @@ package com.week5assignment.week5assignment.services;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -48,15 +49,9 @@ public class UserServiceImpl implements UserService {
   @Override
   public User findUserWithEmail(String email, String password) throws CustomException {
     List<User> usersList = Database.getData();
-    User authenticateUser = usersList.stream()
+    return usersList.stream()
         .filter(user -> user.getEmail().equalsIgnoreCase(email) && user.getPassword().equals(password))
         .findAny()
-        .orElse(null);
-
-    if (authenticateUser == null)
-      throw new CustomException("User not found or Incorrect password!");
-
-    return authenticateUser;
+        .orElseThrow(() -> new CustomException("User not found or Incorrect password!"));
   }
-
 }
