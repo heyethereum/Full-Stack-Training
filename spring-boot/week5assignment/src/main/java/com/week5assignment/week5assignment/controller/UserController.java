@@ -25,7 +25,7 @@ public class UserController {
   @Autowired
   UserServiceImpl userServiceImpl;
 
-  @PostMapping("/userModel")
+  @GetMapping("/userModel")
   public ResponseEntity<List<UserModel>> getUsers() {
     try {
       return ResponseEntity.ok(userServiceImpl.getallUsers());
@@ -35,7 +35,7 @@ public class UserController {
     }
   }
 
-  @PostMapping("/userModel/{userid}")
+  @GetMapping("/userModel/{userid}")
   public ResponseEntity<Object> getUserModel(@PathVariable String userid) {
     GeneralResponse response = new GeneralResponse();
     try {

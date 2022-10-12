@@ -17,6 +17,9 @@ import ClassAge from "./pages/ClassAge";
 import AllUsers from "./pages/AllUsers";
 import ClassAllUsers from "./pages/ClassAllUsers";
 import FindUserById from "./pages/FindUserById";
+import Register from "./pages/Register";
+import LoginDB from "./pages/LoginDB";
+import UpdateDeleteDB from "./pages/UpdateDeleteDB";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +37,12 @@ function App() {
           <Route path="/users" element={<AllUsers />} />
           <Route path="/classAllUsers" element={<ClassAllUsers />} />
           <Route path="/findUserById" element={<FindUserById />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/loginDB"
+            element={<LoginDB Login setUser={setUser} />}
+          />
+          <Route path="/updateDeleteDB" element={<UpdateDeleteDB />} />
 
           <Route path="/products" element={<SharedProductLayout />}>
             <Route index element={<Products />} />

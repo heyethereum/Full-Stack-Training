@@ -189,7 +189,7 @@ ul {
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
   padding: 2rem 2.5rem;
-  margin: 3rem 0;
+  /* margin: 3rem 0; */
 }
 .form-label {
   display: block;
@@ -239,6 +239,7 @@ ul {
 }
 .form h5 {
   text-align: center;
+  color: var(--primary-500);
 }
 .form .btn {
   margin-top: 0.5rem;
@@ -322,4 +323,18 @@ ul {
 
 .red {
   color: red;
+}
+
+input::placeholder {
+  font-weight: bold;
+  opacity: 0.5;
+  color: var(--primary-900);
+}
+
+select {
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--borderRadius);
+  background: var(--backgroundColor);
+  border: 1px solid var(--grey-200);
+  margin-bottom: 1rem;
 }

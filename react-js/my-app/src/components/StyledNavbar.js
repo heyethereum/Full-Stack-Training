@@ -16,16 +16,16 @@ const StyledNavbar = () => {
         Home
       </NavLink>
       <NavLink
-        to="/classPostAPI"
+        to="/register"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
-        ClassPostAPI
+        Register
       </NavLink>
       <NavLink
-        to="/classAllUsers"
+        to="/loginDB"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
-        ClassAllUsers
+        Login
       </NavLink>
       {isLogin && (
         <NavLink
@@ -38,10 +38,10 @@ const StyledNavbar = () => {
         </NavLink>
       )}
       <NavLink
-        to="/findUserById"
+        to="/updateDeleteDB"
         className={({ isActive }) => (isActive ? "link active title" : "link")}
       >
-        FindUserById
+        Update/Delete
       </NavLink>
     </nav>
   );

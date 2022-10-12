@@ -1,10 +1,12 @@
 const Dashboard = ({ user }) => {
-  if (user) {
-    localStorage.setItem("localeStorage", "true");
-  }
   return (
     <section className="section">
-      <h4>Hello, {user?.name}</h4>
+      <h4>
+        Hello <strong>{user?.name}</strong>
+      </h4>
+      <div>Email: {user.email}</div>
+      <div>Phone: {user.phone}</div>
+      <div>Address: {user.address}</div>
     </section>
   );
 };
