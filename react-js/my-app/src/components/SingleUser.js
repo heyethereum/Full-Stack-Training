@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const SingleUser = ({ selected }) => {
+const SingleUser = ({ selected, fetchData }) => {
   const [user, setUser] = useState(null);
   const [msg, setMsg] = useState(null);
   const [error, setError] = useState(null);
-  const [updateUser, setUpdateUser] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
@@ -26,8 +26,7 @@ const SingleUser = ({ selected }) => {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    setUpdateUser(null);
-    const { name, email, phone, address } = updateUser;
+    const { name, email, phone, address } = formData;
 
     let params = {};
     if (name) params = { ...params, name };
@@ -48,11 +47,19 @@ const SingleUser = ({ selected }) => {
       setUser((prevState) => {
         return { ...prevState, ...params };
       });
+      fetchData();
     } catch (error) {
       setError(error.response.data.message);
       console.log(error.response.data.message);
     }
     e.target.reset();
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      phone: "",
+      address: "",
+    });
   };
 
   const handleDelete = async (e) => {
@@ -85,7 +92,7 @@ const SingleUser = ({ selected }) => {
             placeholder={user?.name}
             className="form-input"
             onChange={(e) =>
-              setUpdateUser((prevState) => {
+              setFormData((prevState) => {
                 return { ...prevState, name: e.target.value };
               })
             }
@@ -98,7 +105,7 @@ const SingleUser = ({ selected }) => {
             placeholder={user?.email}
             className="form-input"
             onChange={(e) =>
-              setUpdateUser((prevState) => {
+              setFormData((prevState) => {
                 return { ...prevState, email: e.target.value };
               })
             }
@@ -111,7 +118,7 @@ const SingleUser = ({ selected }) => {
             placeholder={user?.phone}
             className="form-input"
             onChange={(e) =>
-              setUpdateUser((prevState) => {
+              setFormData((prevState) => {
                 return { ...prevState, phone: e.target.value };
               })
             }
@@ -124,7 +131,7 @@ const SingleUser = ({ selected }) => {
             placeholder={user?.address}
             className="form-input"
             onChange={(e) =>
-              setUpdateUser((prevState) => {
+              setFormData((prevState) => {
                 return { ...prevState, address: e.target.value };
               })
             }
