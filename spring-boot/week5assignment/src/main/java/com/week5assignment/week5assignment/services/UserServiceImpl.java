@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
   }
 
   private String generateToken(String email) {
-    String encodedEmail = Base64.getEncoder().encode(email.getBytes()).toString();
+    String encodedEmail = Base64.getEncoder().encodeToString(email.getBytes());
 
     return encodedEmail + System.currentTimeMillis();
   }
