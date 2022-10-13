@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.week5assignment.week5assignment.Response.GeneralResponse;
 import com.week5assignment.week5assignment.exception.CustomException;
 import com.week5assignment.week5assignment.services.UserServiceImpl;
 
@@ -25,13 +26,13 @@ public class TokenInterceptor implements HandlerInterceptor {
     System.out.println("hello!" + url);
     String token = request.getHeader("token");
     String userId = request.getHeader("userId");
-    Long id = Long.parseLong(userId);
-    if (token.isEmpty())
-      throw new CustomException("Empty token");
-    if (userId.isEmpty())
-      throw new CustomException("No user id");
-
-    return (userServiceImpl.validateToken(token, id));
+    try {
+      Long id = Long.parseLong(userId);
+      return (userServiceImpl.validateToken(token, id));
+    } catch (Exception e) {
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid userId");
+    }
+    return false;
   }
 
   @Override

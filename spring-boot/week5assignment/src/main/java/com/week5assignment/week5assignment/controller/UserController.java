@@ -26,12 +26,13 @@ public class UserController {
   UserServiceImpl userServiceImpl;
 
   @GetMapping("/userModel")
-  public ResponseEntity<List<UserModel>> getUsers() {
+  public ResponseEntity<Object> getUsers() {
     try {
       return ResponseEntity.ok(userServiceImpl.getallUsers());
     } catch (Exception e) {
-      e.printStackTrace();
-      throw e;
+      GeneralResponse response = new GeneralResponse();
+      response.setMessage(e.getMessage());
+      return ResponseEntity.badRequest().body(response);
     }
   }
 
@@ -95,7 +96,6 @@ public class UserController {
   @PostMapping("/userModelLogout")
   public ResponseEntity<Object> userModelLogout(@RequestBody UserRequest userRequest) {
     GeneralResponse response = new GeneralResponse();
-
     try {
       userServiceImpl.logout(userRequest.getId());
       response.setMessage("Logout success!");

@@ -69,22 +69,18 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public boolean createUser(UserRequest userRequest) throws CustomException {
-    try {
-      Optional<UserModel> email = userRepo.getUserByEmail(userRequest.getEmail());
-      if (email.isPresent())
-        throw new CustomException("Email already exists");
+    Optional<UserModel> email = userRepo.getUserByEmail(userRequest.getEmail());
+    if (email.isPresent())
+      throw new CustomException("Email already exists");
 
-      UserModel newUser = new UserModel();
-      newUser.setName(userRequest.getName());
-      newUser.setEmail(userRequest.getEmail());
-      newUser.setPhone(userRequest.getPhone());
-      newUser.setAddress(userRequest.getAddress());
-      newUser.setPassword(userRequest.getPassword());
-      userRepo.save(newUser);
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw e;
-    }
+    UserModel newUser = new UserModel();
+    newUser.setName(userRequest.getName());
+    newUser.setEmail(userRequest.getEmail());
+    newUser.setPhone(userRequest.getPhone());
+    newUser.setAddress(userRequest.getAddress());
+    newUser.setPassword(userRequest.getPassword());
+    userRepo.save(newUser);
+
     return true;
   }
 
@@ -111,37 +107,29 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public boolean updateUser(UserRequest userRequest) throws CustomException {
-    try {
-      UserModel user = userRepo.findById(userRequest.getId())
-          .orElseThrow(() -> new CustomException("No User Found!"));
-      if (userRequest.getEmail() != null && !userRequest.getEmail().equals(""))
-        user.setEmail(userRequest.getEmail());
-      if (userRequest.getPhone() != null && !userRequest.getPhone().equals(""))
-        user.setPhone(userRequest.getPhone());
-      if (userRequest.getName() != null && !userRequest.getName().equals(""))
-        user.setName(userRequest.getName());
-      if (userRequest.getAddress() != null && !userRequest.getAddress().equals(""))
-        user.setAddress(userRequest.getAddress());
-      if (userRequest.getPassword() != null && !userRequest.getPassword().equals(""))
-        user.setPassword(userRequest.getPassword());
+    UserModel user = userRepo.findById(userRequest.getId())
+        .orElseThrow(() -> new CustomException("No User Found!"));
+    if (userRequest.getEmail() != null && !userRequest.getEmail().equals(""))
+      user.setEmail(userRequest.getEmail());
+    if (userRequest.getPhone() != null && !userRequest.getPhone().equals(""))
+      user.setPhone(userRequest.getPhone());
+    if (userRequest.getName() != null && !userRequest.getName().equals(""))
+      user.setName(userRequest.getName());
+    if (userRequest.getAddress() != null && !userRequest.getAddress().equals(""))
+      user.setAddress(userRequest.getAddress());
+    if (userRequest.getPassword() != null && !userRequest.getPassword().equals(""))
+      user.setPassword(userRequest.getPassword());
 
-      userRepo.save(user);
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw e;
-    }
+    userRepo.save(user);
+
     return true;
   }
 
   @Override
   public boolean deleteUser(Long id) throws CustomException {
-    try {
-      UserModel user = userRepo.findById(id).orElseThrow(() -> new CustomException("User Not Found!"));
-      userRepo.delete(user);
-    } catch (Exception e) {
-      e.printStackTrace();
-      throw e;
-    }
+    UserModel user = userRepo.findById(id).orElseThrow(() -> new CustomException("User Not Found!"));
+    userRepo.delete(user);
+
     return true;
   }
 
