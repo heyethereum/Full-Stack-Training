@@ -51,3 +51,5 @@ VALUES (
     );
 
 SELECT * FROM geco_test.users;
+
+ALTER TABLE geco_test.users ADD token VARCHAR(200) AFTER password;

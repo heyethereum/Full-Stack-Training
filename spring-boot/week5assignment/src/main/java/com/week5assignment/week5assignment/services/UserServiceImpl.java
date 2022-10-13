@@ -1,5 +1,6 @@
 package com.week5assignment.week5assignment.services;
 
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -89,8 +90,23 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public UserModel userLogin(String email, String password) throws CustomException {
-    return userRepo.getUserByEmailAndPassword(email, password)
+    UserModel user = userRepo.getUserByEmailAndPassword(email, password)
         .orElseThrow(() -> new CustomException("Wrong email or password!"));
+    String token = generateToken(user.getEmail());
+    updateToken(token, user.getId());
+    user.setToken(token);
+    return user;
+  }
+
+  private void updateToken(String token, Long id) {
+    System.out.println(token + " " + id);
+    userRepo.updateTokenForUserId(token, id);
+  }
+
+  private String generateToken(String email) {
+    String encodedEmail = Base64.getEncoder().encode(email.getBytes()).toString();
+
+    return encodedEmail + System.currentTimeMillis();
   }
 
   @Override
@@ -126,6 +142,20 @@ public class UserServiceImpl implements UserService {
       e.printStackTrace();
       throw e;
     }
+    return true;
+  }
+
+  @Override
+  public boolean validateToken(String token, Long id) throws CustomException {
+    UserModel user = findUserModelById(id);
+    if (!user.getToken().equals(token))
+      throw new CustomException("Token mismatch");
+    return true;
+  }
+
+  @Override
+  public boolean logout(Long id) throws Exception {
+    updateToken("", id);
     return true;
   }
 }

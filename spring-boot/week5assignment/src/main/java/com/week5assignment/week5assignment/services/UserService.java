@@ -26,4 +26,8 @@ public interface UserService {
   boolean updateUser(UserRequest userRequest) throws CustomException;
 
   boolean deleteUser(Long id) throws CustomException;
+
+  boolean validateToken(String token, Long id) throws CustomException;
+
+  boolean logout(Long id) throws Exception;
 }

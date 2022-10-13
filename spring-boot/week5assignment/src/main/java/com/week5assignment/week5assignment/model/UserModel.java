@@ -20,6 +20,7 @@ public class UserModel {
   private String email;
   private String address;
   private String phone;
+  private String token;
 
   public UserModel() {
     super();
@@ -73,4 +74,11 @@ public class UserModel {
     this.phone = phone;
   }
 
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
 }

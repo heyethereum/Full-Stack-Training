@@ -16,7 +16,6 @@ import io.github.cdimascio.dotenv.DotenvEntry;
 public class Week5assignmentApplication {
 
 	public static void main(String[] args) {
-		// SpringApplication.run(Week5assignmentApplication.class, args);
 
 		Map<String, Object> env = Dotenv.load()
 				.entries()

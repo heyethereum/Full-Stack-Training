@@ -92,6 +92,20 @@ public class UserController {
     }
   }
 
+  @PostMapping("/userModelLogout")
+  public ResponseEntity<Object> userModelLogout(@RequestBody UserRequest userRequest) {
+    GeneralResponse response = new GeneralResponse();
+
+    try {
+      userServiceImpl.logout(userRequest.getId());
+      response.setMessage("Logout success!");
+      return ResponseEntity.ok(response);
+    } catch (Exception e) {
+      response.setMessage(e.getMessage());
+      return ResponseEntity.badRequest().body(response);
+    }
+  }
+
   @PostMapping("/userModelRegister")
   public ResponseEntity<GeneralResponse> userRegister(@RequestBody UserRequest userRequest) {
     GeneralResponse response = new GeneralResponse();
