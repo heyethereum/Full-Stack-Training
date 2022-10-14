@@ -90,7 +90,7 @@ public class UserController {
     return ResponseEntity.ok(new GeneralResponse("Deletion Success!"));
   }
 
-  @PostMapping(value = "/imageupload")
+  @PostMapping("/imageupload")
   public ResponseEntity<GeneralResponse> imageUpload(@RequestParam MultipartFile file,
       @RequestHeader("token") String token) throws CustomException, IOException {
     userServiceImpl.profilePicUpload(token, file);

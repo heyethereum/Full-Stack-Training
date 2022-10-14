@@ -190,8 +190,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public byte[] profilePicRequest(String token, String fileName) throws IOException, CustomException {
-    Jws<Claims> claim = checkJWTToken(token);
-    Long claimIdFromToken = Long.valueOf((String) claim.getBody().get("jti"));
+    String claimIdFromToken = (String) checkJWTToken(token).getBody().get("jti");
     FileInputStream input = new FileInputStream(folderPath + claimIdFromToken + "_" + fileName);
 
     return IOUtils.toByteArray(input);
