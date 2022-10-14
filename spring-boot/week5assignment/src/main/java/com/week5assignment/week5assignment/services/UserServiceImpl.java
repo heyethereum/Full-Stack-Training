@@ -177,15 +177,12 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Integer profilePicUpload(String token, String userId, MultipartFile file) throws CustomException, IOException {
+  public Integer profilePicUpload(String token, MultipartFile file) throws CustomException, IOException {
     Jws<Claims> claim = checkJWTToken(token);
     Long claimIdFromToken = Long.valueOf((String) claim.getBody().get("jti"));
     validateToken(token, claimIdFromToken);
 
-    if (!Objects.equals(claimIdFromToken, Long.valueOf(userId)))
-      throw new CustomException("User Id and supplied token user Id mismatch");
-
-    String fileName = userId + "_" + file.getOriginalFilename();
+    String fileName = claimIdFromToken + "_" + file.getOriginalFilename();
 
     try (FileOutputStream out = new FileOutputStream(folderPath + fileName)) {
       out.write(file.getBytes());

@@ -104,9 +104,9 @@ public class UserController {
   }
 
   @PostMapping(value = "/imageupload")
-  public ResponseEntity<GeneralResponse> imageUpload(@RequestParam String userId, @RequestParam MultipartFile file,
+  public ResponseEntity<GeneralResponse> imageUpload(@RequestParam MultipartFile file,
       @RequestHeader("token") String token) throws CustomException, IOException {
-    userServiceImpl.profilePicUpload(token, userId, file);
+    userServiceImpl.profilePicUpload(token, file);
     GeneralResponse response = new GeneralResponse();
     response.setMessage("File uploaded: " + file.getOriginalFilename());
     return ResponseEntity.ok(response);
