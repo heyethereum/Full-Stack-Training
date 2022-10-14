@@ -1,11 +1,8 @@
 package com.week5assignment.week5assignment.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +22,6 @@ import com.week5assignment.week5assignment.exception.CustomException;
 import com.week5assignment.week5assignment.model.User;
 import com.week5assignment.week5assignment.model.UserModel;
 import com.week5assignment.week5assignment.services.UserServiceImpl;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 
 @RestController
 @RequestMapping("/week5Assignment")
@@ -111,8 +105,7 @@ public class UserController {
 
   @PostMapping(value = "/imageupload")
   public ResponseEntity<GeneralResponse> imageUpload(@RequestParam String userId, @RequestParam MultipartFile file,
-      @RequestHeader("token") String token)
-      throws Exception {
+      @RequestHeader("token") String token) throws CustomException, IOException {
     userServiceImpl.profilePicUpload(token, userId, file);
     GeneralResponse response = new GeneralResponse();
     response.setMessage("File uploaded: " + file.getOriginalFilename());
@@ -120,7 +113,8 @@ public class UserController {
   }
 
   @GetMapping(value = "readImage/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
-  public byte[] imageRequest(@PathVariable String fileName, @RequestHeader("token") String token) throws Exception {
+  public byte[] imageRequest(@PathVariable String fileName, @RequestHeader("token") String token)
+      throws IOException, CustomException {
     return userServiceImpl.profilePicRequest(token, fileName);
   }
 }

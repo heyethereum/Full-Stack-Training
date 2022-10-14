@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.core.env.Environment;
@@ -179,12 +180,12 @@ public class UserServiceImpl implements UserService {
   public Integer profilePicUpload(String token, String userId, MultipartFile file) throws CustomException, IOException {
     Jws<Claims> claim = checkJWTToken(token);
     Long claimIdFromToken = Long.valueOf((String) claim.getBody().get("jti"));
-    UserModel user = findUserModelById(claimIdFromToken);
+    validateToken(token, claimIdFromToken);
 
-    if (user.getId() != Long.valueOf(userId))
+    if (!Objects.equals(claimIdFromToken, Long.valueOf(userId)))
       throw new CustomException("User Id and supplied token user Id mismatch");
 
-    String fileName = user.getId() + "_" + file.getOriginalFilename();
+    String fileName = userId + "_" + file.getOriginalFilename();
 
     try (FileOutputStream out = new FileOutputStream(folderPath + fileName)) {
       out.write(file.getBytes());
