@@ -1,6 +1,10 @@
 package com.week5assignment.week5assignment.services;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.week5assignment.week5assignment.Request.UserRequest;
 import com.week5assignment.week5assignment.Response.GeneralResponse;
@@ -29,5 +33,10 @@ public interface UserService {
 
   boolean validateToken(String token, Long id) throws CustomException;
 
-  boolean logout(Long id) throws Exception;
+  Integer logout(Long id);
+
+  Integer profilePicUpload(String token, String userId,
+      MultipartFile file) throws CustomException, IOException;
+
+  byte[] profilePicRequest(String token, String fileName) throws IOException, CustomException;
 }

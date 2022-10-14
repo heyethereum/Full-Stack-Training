@@ -9,7 +9,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.week5assignment.week5assignment.Response.GeneralResponse;
 import com.week5assignment.week5assignment.exception.CustomException;
 import com.week5assignment.week5assignment.services.UserServiceImpl;
 
@@ -20,19 +19,32 @@ public class TokenInterceptor implements HandlerInterceptor {
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-    String url = request.getRequestURL().toString();
-    if (url.endsWith("userModelLogin"))
-      return true;
-    System.out.println("hello!" + url);
-    String token = request.getHeader("token");
-    String userId = request.getHeader("userId");
+
     try {
+      String url = request.getRequestURL().toString();
+      if (url.endsWith("userModelLogin"))
+        return true;
+      if (url.contains("readImage"))
+        return true;
+      System.out.println("" + url);
+      String token = request.getHeader("token");
+      String userId = request.getHeader("userId");
+
+      if (token == null || token.isEmpty())
+        throw new CustomException("please send the token");
+
+      if (userId == null || userId.isEmpty())
+        throw new CustomException("please send the userId");
+
       Long id = Long.parseLong(userId);
+      userServiceImpl.checkJWTToken(token);
+
       return (userServiceImpl.validateToken(token, id));
+    } catch (NumberFormatException e) {
+      throw new CustomException("Wrong user Id format");
     } catch (Exception e) {
-      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid userId");
+      throw new CustomException(e.getMessage());
     }
-    return false;
   }
 
   @Override

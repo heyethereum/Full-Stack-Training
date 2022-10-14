@@ -9,7 +9,16 @@ const UpdateDeleteDB = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const { data: dbUsers } = await axios.get(url);
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          userid: localStorage.getItem("userid"),
+          token: localStorage.getItem("token"),
+        },
+      };
+      console.log("token", localStorage.getItem("token"));
+      console.log("userid", localStorage.getItem("userid"));
+      const { data: dbUsers } = await axios(url, config);
       setUsers(dbUsers);
       if (!selected) setSelected(dbUsers[0].id);
     } catch (error) {

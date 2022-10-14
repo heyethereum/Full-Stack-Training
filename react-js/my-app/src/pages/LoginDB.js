@@ -21,8 +21,10 @@ const LoginDB = ({ setUser }) => {
     try {
       const response = await axios.post(url, params);
 
-      const { name, address, phone } = response.data;
+      const { name, address, phone, token, id } = response.data;
       setUser({ name, email, address, phone });
+      localStorage.setItem("token", token);
+      localStorage.setItem("userid", id);
       navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message);

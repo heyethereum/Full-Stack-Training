@@ -52,4 +52,8 @@ VALUES (
 
 SELECT * FROM geco_test.users;
 
-ALTER TABLE geco_test.users ADD token VARCHAR(200) AFTER password;
+ALTER TABLE geco_test.users ADD token TEXT AFTER password;
+
+ALTER TABLE geco_test.users ADD profilePic VARCHAR(200) AFTER token;
+
+ALTER TABLE geco_test.users DROP COLUMN profilePic;

@@ -1,12 +1,21 @@
 package com.week5assignment.week5assignment.services;
 
-import java.util.Base64;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.core.env.Environment;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.week5assignment.week5assignment.Request.UserRequest;
 import com.week5assignment.week5assignment.Response.GeneralResponse;
@@ -15,8 +24,16 @@ import com.week5assignment.week5assignment.model.User;
 import com.week5assignment.week5assignment.model.UserModel;
 import com.week5assignment.week5assignment.repo.UserRepo;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
 @Service
 public class UserServiceImpl implements UserService {
+  String folderPath = "spring-boot/week5assignment/src/main/java/com/week5assignment/week5assignment/userupload/";
+  @Autowired
+  Environment env;
   @Autowired
   UserRepo userRepo;
 
@@ -88,21 +105,33 @@ public class UserServiceImpl implements UserService {
   public UserModel userLogin(String email, String password) throws CustomException {
     UserModel user = userRepo.getUserByEmailAndPassword(email, password)
         .orElseThrow(() -> new CustomException("Wrong email or password!"));
-    String token = generateToken(user.getEmail());
+    String token = generateToken(user);
     updateToken(token, user.getId());
     user.setToken(token);
     return user;
   }
 
-  private void updateToken(String token, Long id) {
+  private Integer updateToken(String token, Long id) {
     System.out.println(token + " " + id);
-    userRepo.updateTokenForUserId(token, id);
+    return userRepo.updateTokenForUserId(token, id);
   }
 
-  private String generateToken(String email) {
-    String encodedEmail = Base64.getEncoder().encodeToString(email.getBytes());
+  private String generateToken(UserModel user) {
+    Calendar c = Calendar.getInstance();
+    c.add(Calendar.DAY_OF_YEAR, 10);
+    // c.add(Calendar.SECOND, 5);
+    return Jwts.builder()
+        .claim("email", user.getEmail())
+        .setSubject(user.getName())
+        .setId("" + user.getId())
+        .setIssuedAt(new Date())
+        .setExpiration(c.getTime())
+        .signWith(SignatureAlgorithm.HS512, env.getProperty("JWT_SECRET"))
+        .compact();
+  }
 
-    return encodedEmail + System.currentTimeMillis();
+  public Jws<Claims> checkJWTToken(String token) throws CustomException {
+    return Jwts.parser().setSigningKey(env.getProperty("JWT_SECRET")).parseClaimsJws(token);
   }
 
   @Override
@@ -142,8 +171,35 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public boolean logout(Long id) throws Exception {
-    updateToken("", id);
-    return true;
+  public Integer logout(Long id) {
+    return updateToken("", id);
+  }
+
+  @Override
+  public Integer profilePicUpload(String token, String userId, MultipartFile file) throws CustomException, IOException {
+    Jws<Claims> claim = checkJWTToken(token);
+    Long claimIdFromToken = Long.valueOf((String) claim.getBody().get("jti"));
+    UserModel user = findUserModelById(claimIdFromToken);
+
+    if (user.getId() != Long.valueOf(userId))
+      throw new CustomException("User Id and supplied token user Id mismatch");
+
+    String fileName = user.getId() + "_" + file.getOriginalFilename();
+
+    try (FileOutputStream out = new FileOutputStream(folderPath + fileName)) {
+      out.write(file.getBytes());
+    } catch (FileNotFoundException e) {
+      throw new CustomException(e.getMessage());
+    }
+    return userRepo.updateProfilepicForUserId(fileName, claimIdFromToken);
+  }
+
+  @Override
+  public byte[] profilePicRequest(String token, String fileName) throws IOException, CustomException {
+    Jws<Claims> claim = checkJWTToken(token);
+    Long claimIdFromToken = Long.valueOf((String) claim.getBody().get("jti"));
+    FileInputStream input = new FileInputStream(folderPath + claimIdFromToken + "_" + fileName);
+
+    return IOUtils.toByteArray(input);
   }
 }

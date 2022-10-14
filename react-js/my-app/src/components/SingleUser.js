@@ -14,9 +14,16 @@ const SingleUser = ({ selected, fetchData }) => {
   });
 
   useEffect(() => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        userid: localStorage.getItem("userid"),
+        token: localStorage.getItem("token"),
+      },
+    };
     const url = `http://localhost:5678/week5Assignment/userModel/` + selected;
     const getUser = async () => {
-      const { data: userData } = await axios.get(url);
+      const { data: userData } = await axios.get(url, config);
       setUser(userData);
     };
     getUser();
