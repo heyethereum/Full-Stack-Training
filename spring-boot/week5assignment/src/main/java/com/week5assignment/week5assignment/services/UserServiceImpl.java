@@ -1,7 +1,6 @@
 package com.week5assignment.week5assignment.services;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -9,7 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.core.env.Environment;
@@ -58,10 +56,8 @@ public class UserServiceImpl implements UserService {
         .orElse(null);
 
     String message = (authenticateUser == null) ? "User not found or Wrong password" : "Login Success!";
-    GeneralResponse response = new GeneralResponse();
-    response.setMessage(message);
 
-    return response;
+    return new GeneralResponse(message);
   }
 
   @Override
@@ -186,7 +182,7 @@ public class UserServiceImpl implements UserService {
 
     try (FileOutputStream out = new FileOutputStream(folderPath + fileName)) {
       out.write(file.getBytes());
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       throw new CustomException(e.getMessage());
     }
     return userRepo.updateProfilepicForUserId(fileName, claimIdFromToken);

@@ -26,8 +26,6 @@ import com.week5assignment.week5assignment.services.UserServiceImpl;
 @RestController
 @RequestMapping("/week5Assignment")
 public class UserController {
-  String folderPath = "spring-boot/week5assignment/src/main/java/com/week5assignment/week5assignment/userupload/";
-
   @Autowired
   UserServiceImpl userServiceImpl;
 
@@ -50,7 +48,6 @@ public class UserController {
   @PostMapping("/userLoginParams")
   public ResponseEntity<User> loginWithParams(@RequestParam String email, @RequestParam String password)
       throws CustomException {
-
     return ResponseEntity.ok(userServiceImpl.findUserWithEmail(email, password));
   }
 
@@ -70,46 +67,34 @@ public class UserController {
 
   @PostMapping("/userModelLogout")
   public ResponseEntity<GeneralResponse> userModelLogout(@RequestBody UserRequest userRequest) throws Exception {
-    GeneralResponse response = new GeneralResponse();
     userServiceImpl.logout(userRequest.getId());
-    response.setMessage("Logout success!");
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(new GeneralResponse("Logout success!"));
   }
 
   @PostMapping("/userModelRegister")
   public ResponseEntity<GeneralResponse> userRegister(@RequestBody UserRequest userRequest) throws CustomException {
-    GeneralResponse response = new GeneralResponse();
     userServiceImpl.createUser(userRequest);
-    response.setMessage("Register success!");
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(new GeneralResponse("Register success!"));
 
   }
 
   @PostMapping("/userModelUpdate")
   public ResponseEntity<GeneralResponse> userUpdate(@RequestBody UserRequest userRequest) throws CustomException {
-    GeneralResponse response = new GeneralResponse();
     userServiceImpl.updateUser(userRequest);
-    response.setMessage("Update Success!");
-    return ResponseEntity.ok(response);
-
+    return ResponseEntity.ok(new GeneralResponse("Update Success!"));
   }
 
   @PostMapping("/userModelDelete")
   public ResponseEntity<GeneralResponse> userDelete(@RequestBody UserRequest userRequest) throws CustomException {
-    GeneralResponse response = new GeneralResponse();
     userServiceImpl.deleteUser(userRequest.getId());
-    response.setMessage("Deletion Success!");
-    return ResponseEntity.ok(response);
-
+    return ResponseEntity.ok(new GeneralResponse("Deletion Success!"));
   }
 
   @PostMapping(value = "/imageupload")
   public ResponseEntity<GeneralResponse> imageUpload(@RequestParam MultipartFile file,
       @RequestHeader("token") String token) throws CustomException, IOException {
     userServiceImpl.profilePicUpload(token, file);
-    GeneralResponse response = new GeneralResponse();
-    response.setMessage("File uploaded: " + file.getOriginalFilename());
-    return ResponseEntity.ok(response);
+    return ResponseEntity.ok(new GeneralResponse("File uploaded: " + file.getOriginalFilename()));
   }
 
   @GetMapping(value = "readImage/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)

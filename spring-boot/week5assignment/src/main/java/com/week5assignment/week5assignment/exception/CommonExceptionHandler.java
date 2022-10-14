@@ -10,29 +10,21 @@ import com.week5assignment.week5assignment.Response.GeneralResponse;
 public class CommonExceptionHandler {
   @ExceptionHandler(Exception.class)
   public ResponseEntity<GeneralResponse> exceptionHandler(Exception e) {
-    GeneralResponse response = new GeneralResponse();
-    response.setMessage(e.getMessage());
-    return ResponseEntity.badRequest().body(response);
+    return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
   }
 
   @ExceptionHandler(RuntimeException.class)
   public ResponseEntity<GeneralResponse> exceptionHandler(RuntimeException e) {
-    GeneralResponse response = new GeneralResponse();
-    response.setMessage(e.getMessage());
-    return ResponseEntity.badRequest().body(response);
+    return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
   }
 
   @ExceptionHandler(CustomException.class)
   public ResponseEntity<GeneralResponse> exceptionHandler(CustomException e) {
-    GeneralResponse response = new GeneralResponse();
-    response.setMessage(e.getMessage());
-    return ResponseEntity.badRequest().body(response);
+    return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
   }
 
   @ExceptionHandler(NumberFormatException.class)
   public ResponseEntity<GeneralResponse> exceptionHandler(NumberFormatException e) {
-    GeneralResponse response = new GeneralResponse();
-    response.setMessage(e.getMessage());
-    return ResponseEntity.badRequest().body(response);
+    return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
   }
 }
