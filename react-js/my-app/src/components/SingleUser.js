@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useMemo, useReducer } from "react";
+import React, { useEffect, useMemo, useReducer } from "react";
 import axios from "axios";
 
-export const INITIALSTATE = {
+export const INITIAL_STATE = {
   form: { name: "", email: "", password: "", phone: "", address: "" },
+  msg: null,
+  error: null,
+  user: null,
 };
 const reducer = (state, action) => {
   console.log("action: ", action);
@@ -10,20 +13,17 @@ const reducer = (state, action) => {
     case "update_input":
       return {
         ...state,
-        [action.payload.key]: action.payload.value,
+        [action.key]: action.value,
       };
-    case "reset_state":
-      return INITIALSTATE;
+    case "reset_form":
+      return { ...state, form: {} };
     default:
       return state;
   }
 };
 
 const SingleUser = ({ selected, fetchData }) => {
-  const [user, setUser] = useState(null);
-  const [msg, setMsg] = useState(null);
-  const [error, setError] = useState(null);
-  const [state, dispatch] = useReducer(reducer, INITIALSTATE);
+  const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const config = useMemo(
     () => ({
       headers: {
@@ -34,27 +34,31 @@ const SingleUser = ({ selected, fetchData }) => {
     }),
     []
   );
-  const handleChange = (e) => {
+  const handleFormChange = (e) => {
     dispatch({
       type: "update_input",
-      payload: { key: "form", value: { [e.target.name]: e.target.value } },
+      key: "form",
+      value: { ...state.form, [e.target.name]: e.target.value },
     });
+  };
+  const setState = (key, value) => {
+    dispatch({ type: "update_input", key: key, value: value });
   };
 
   useEffect(() => {
     const url = `http://localhost:5678/week5Assignment/userModel/` + selected;
     const getUser = async () => {
       const { data: userData } = await axios.get(url, config);
-      setUser(userData);
+      setState("user", userData);
     };
     getUser();
-    setMsg(null);
-    setError(null);
+    setState("msg", null);
+    setState("error", null);
   }, [selected, config]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const { name, email, phone, address } = state.form;
+    const { name, email, phone, address } = state?.form;
     console.log("state: ", state);
     let params = {};
     if (name) params = { ...params, name };
@@ -71,33 +75,30 @@ const SingleUser = ({ selected, fetchData }) => {
       const {
         data: { message },
       } = await axios.post(url, params, config);
-      setMsg(message);
-      setUser((prevState) => {
-        return { ...prevState, ...params };
-      });
+      setState("msg", message);
+      setState("user", { ...state.user, ...params });
       fetchData();
     } catch (error) {
-      setError(error.response.data.message);
+      setState("error", "Update Failed");
       console.log(error.response.data.message);
     }
     e.target.reset();
-    dispatch({ type: "reset_state" });
+    dispatch({ type: "reset_form" });
   };
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    setMsg(null);
-    setError(null);
+    setState("msg", null);
+    setState("error", null);
     try {
       const url = `http://localhost:5678/week5Assignment/userModelDelete`;
       const params = { id: selected };
       const {
         data: { message },
       } = await axios.post(url, params, config);
-      setMsg(message);
+      setState("msg", message);
     } catch (error) {
-      setError(error.response.data.message);
-      console.log(error.response.data.message);
+      setState("error", error.response.data.message);
     }
   };
 
@@ -105,50 +106,50 @@ const SingleUser = ({ selected, fetchData }) => {
     <div>
       <form className="form" onSubmit={handleUpdate}>
         <div>
-          <h5>User ID: {user?.id}</h5>
+          <h5>User ID: {state.user?.id}</h5>
         </div>
         <div>
           Name:{" "}
           <input
             type="text"
-            placeholder={user?.name}
+            placeholder={state.user?.name}
             className="form-input"
             name="name"
             value={state.form.name}
-            onChange={handleChange}
+            onChange={handleFormChange}
           ></input>
         </div>
         <div>
           Email:{" "}
           <input
             type="email"
-            placeholder={user?.email}
+            placeholder={state.user?.email}
             className="form-input"
             value={state.form.email}
             name="email"
-            onChange={handleChange}
+            onChange={handleFormChange}
           ></input>
         </div>
         <div>
           Phone:{" "}
           <input
             type="text"
-            placeholder={user?.phone}
+            placeholder={state.user?.phone}
             className="form-input"
             value={state.form.phone}
             name="phone"
-            onChange={handleChange}
+            onChange={handleFormChange}
           ></input>
         </div>
         <div>
           Address:{" "}
           <input
             type="text"
-            placeholder={user?.address}
+            placeholder={state.user?.address}
             className="form-input"
             value={state.form.address}
             name="address"
-            onChange={handleChange}
+            onChange={handleFormChange}
           ></input>
         </div>
         <div>
@@ -160,8 +161,8 @@ const SingleUser = ({ selected, fetchData }) => {
           </button>
         </div>
       </form>
-      {msg && <div>{msg}</div>}
-      {error && <div className="red">{error}</div>}
+      {state.msg && <div>{state.msg}</div>}
+      {state.error && <div className="red">{state.error}</div>}
     </div>
   );
 };
