@@ -10,7 +10,7 @@ const reducer = (state, action) => {
     case "update_input":
       return {
         ...state,
-        [action.payload.name]: action.payload.value,
+        [action.payload.key]: action.payload.value,
       };
     case "reset_state":
       return INITIALSTATE;
@@ -37,7 +37,7 @@ const SingleUser = ({ selected, fetchData }) => {
   const handleChange = (e) => {
     dispatch({
       type: "update_input",
-      payload: { name: "form", value: { [e.target.name]: e.target.value } },
+      payload: { key: "form", value: { [e.target.name]: e.target.value } },
     });
   };
 
