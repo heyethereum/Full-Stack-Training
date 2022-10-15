@@ -67,8 +67,9 @@ public class UserController {
   }
 
   @PostMapping("/userModelLogout")
-  public ResponseEntity<GeneralResponse> userModelLogout(@RequestBody UserRequest userRequest) throws Exception {
-    userServiceImpl.logout(userRequest.getId());
+  public ResponseEntity<GeneralResponse> userModelLogout(@RequestHeader("token") String token) throws CustomException {
+    Long claimIdFromToken = Long.valueOf((String) userServiceImpl.checkJWTToken(token).getBody().get("jti"));
+    userServiceImpl.logout(claimIdFromToken);
     return ResponseEntity.ok(new GeneralResponse("Logout success!"));
   }
 

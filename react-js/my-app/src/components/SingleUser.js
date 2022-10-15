@@ -1,26 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo, useReducer } from "react";
 import axios from "axios";
+
+const initialState = {
+  form: { name: "", email: "", password: "", phone: "", address: "" },
+  error: null,
+  msg: null,
+  user: null,
+};
+const reducer = (state, action) => {
+  console.log("action: ", action);
+  switch (action.type) {
+    case "update_input":
+      return {
+        ...state,
+        [action.payload.name]: action.payload.value,
+      };
+    case "reset_state":
+      return initialState;
+    default:
+      return state;
+  }
+};
 
 const SingleUser = ({ selected, fetchData }) => {
   const [user, setUser] = useState(null);
   const [msg, setMsg] = useState(null);
   const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    phone: "",
-    address: "",
-  });
-
-  useEffect(() => {
-    const config = {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const config = useMemo(
+    () => ({
       headers: {
         "Content-Type": "application/json",
         userid: localStorage.getItem("userid"),
         token: localStorage.getItem("token"),
       },
-    };
+    }),
+    []
+  );
+  const handleChange = (e) => {
+    dispatch({
+      type: "update_input",
+      payload: { name: "form", value: { [e.target.name]: e.target.value } },
+    });
+  };
+
+  useEffect(() => {
     const url = `http://localhost:5678/week5Assignment/userModel/` + selected;
     const getUser = async () => {
       const { data: userData } = await axios.get(url, config);
@@ -29,12 +53,14 @@ const SingleUser = ({ selected, fetchData }) => {
     getUser();
     setMsg(null);
     setError(null);
-  }, [selected]);
+    dispatch({ type: "update_input", payload: { name: "msg", value: null } });
+    dispatch({ type: "update_input", payload: { name: "error", value: null } });
+  }, [selected, config]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    const { name, email, phone, address } = formData;
-
+    const { name, email, phone, address } = state.form;
+    console.log("state: ", state);
     let params = {};
     if (name) params = { ...params, name };
     if (email) params = { ...params, email };
@@ -49,8 +75,12 @@ const SingleUser = ({ selected, fetchData }) => {
       console.log(params);
       const {
         data: { message },
-      } = await axios.post(url, params);
+      } = await axios.post(url, params, config);
       setMsg(message);
+      dispatch({
+        type: "update_input",
+        payload: { name: "msg", value: message },
+      });
       setUser((prevState) => {
         return { ...prevState, ...params };
       });
@@ -60,13 +90,7 @@ const SingleUser = ({ selected, fetchData }) => {
       console.log(error.response.data.message);
     }
     e.target.reset();
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      phone: "",
-      address: "",
-    });
+    dispatch({ type: "reset_state" });
   };
 
   const handleDelete = async (e) => {
@@ -78,7 +102,7 @@ const SingleUser = ({ selected, fetchData }) => {
       const params = { id: selected };
       const {
         data: { message },
-      } = await axios.post(url, params);
+      } = await axios.post(url, params, config);
       setMsg(message);
     } catch (error) {
       setError(error.response.data.message);
@@ -98,11 +122,9 @@ const SingleUser = ({ selected, fetchData }) => {
             type="text"
             placeholder={user?.name}
             className="form-input"
-            onChange={(e) =>
-              setFormData((prevState) => {
-                return { ...prevState, name: e.target.value };
-              })
-            }
+            name="name"
+            value={state.form.name}
+            onChange={handleChange}
           ></input>
         </div>
         <div>
@@ -111,11 +133,9 @@ const SingleUser = ({ selected, fetchData }) => {
             type="email"
             placeholder={user?.email}
             className="form-input"
-            onChange={(e) =>
-              setFormData((prevState) => {
-                return { ...prevState, email: e.target.value };
-              })
-            }
+            value={state.form.email}
+            name="email"
+            onChange={handleChange}
           ></input>
         </div>
         <div>
@@ -124,11 +144,9 @@ const SingleUser = ({ selected, fetchData }) => {
             type="text"
             placeholder={user?.phone}
             className="form-input"
-            onChange={(e) =>
-              setFormData((prevState) => {
-                return { ...prevState, phone: e.target.value };
-              })
-            }
+            value={state.form.phone}
+            name="phone"
+            onChange={handleChange}
           ></input>
         </div>
         <div>
@@ -137,11 +155,9 @@ const SingleUser = ({ selected, fetchData }) => {
             type="text"
             placeholder={user?.address}
             className="form-input"
-            onChange={(e) =>
-              setFormData((prevState) => {
-                return { ...prevState, address: e.target.value };
-              })
-            }
+            value={state.form.address}
+            name="address"
+            onChange={handleChange}
           ></input>
         </div>
         <div>
