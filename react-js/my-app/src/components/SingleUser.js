@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import axios from "axios";
+import { config, reducer } from "../utils/util";
 
 export const INITIAL_STATE = {
   form: { name: "", email: "", password: "", phone: "", address: "" },
@@ -7,44 +8,14 @@ export const INITIAL_STATE = {
   error: null,
   user: null,
 };
-const reducer = (state, action) => {
-  console.log("action: ", action);
-  switch (action.type) {
-    case "update_input":
-      return {
-        ...state,
-        [action.key]: action.value,
-      };
-    case "reset_form":
-      return { ...state, form: {} };
-    default:
-      return state;
-  }
-};
-
 const SingleUser = ({ selected, fetchData }) => {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
-  const config = useMemo(
-    () => ({
-      headers: {
-        "Content-Type": "application/json",
-        userid: localStorage.getItem("userid"),
-        token: localStorage.getItem("token"),
-      },
-    }),
-    []
-  );
   const handleFormChange = (e) => {
-    dispatch({
-      type: "update_input",
-      key: "form",
-      value: { ...state.form, [e.target.name]: e.target.value },
-    });
+    setState("form", { ...state.form, [e.target.name]: e.target.value });
   };
   const setState = (key, value) => {
     dispatch({ type: "update_input", key: key, value: value });
   };
-
   useEffect(() => {
     const url = `http://localhost:5678/week5Assignment/userModel/` + selected;
     const getUser = async () => {
@@ -54,12 +25,12 @@ const SingleUser = ({ selected, fetchData }) => {
     getUser();
     setState("msg", null);
     setState("error", null);
-  }, [selected, config]);
+  }, [selected]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
     const { name, email, phone, address } = state?.form;
-    console.log("state: ", state);
+
     let params = {};
     if (name) params = { ...params, name };
     if (email) params = { ...params, email };

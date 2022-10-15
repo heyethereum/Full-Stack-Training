@@ -27,7 +27,7 @@ public class TokenInterceptor implements HandlerInterceptor {
       if (request.getMethod().equals("OPTIONS")) {
         return true;
       }
-      if (url.endsWith("userModelLogin"))
+      if (url.endsWith("userModelLogin") || url.contains("Register"))
         return true;
       if (url.contains("readImage"))
         return true;

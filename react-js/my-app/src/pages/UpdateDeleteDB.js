@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import SingleUser from "../components/SingleUser";
+import { config } from "../utils/util";
 
 const UpdateDeleteDB = () => {
   const [users, setUsers] = useState(null);
@@ -9,15 +10,6 @@ const UpdateDeleteDB = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          userid: localStorage.getItem("userid"),
-          token: localStorage.getItem("token"),
-        },
-      };
-      console.log("token", localStorage.getItem("token"));
-      console.log("userid", localStorage.getItem("userid"));
       const { data: dbUsers } = await axios(url, config);
       setUsers(dbUsers);
       if (!selected) setSelected(dbUsers[0].id);
