@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useMemo, useReducer } from "react";
 import axios from "axios";
 
-const initialState = {
+export const INITIALSTATE = {
   form: { name: "", email: "", password: "", phone: "", address: "" },
-  error: null,
-  msg: null,
-  user: null,
 };
 const reducer = (state, action) => {
   console.log("action: ", action);
@@ -16,7 +13,7 @@ const reducer = (state, action) => {
         [action.payload.name]: action.payload.value,
       };
     case "reset_state":
-      return initialState;
+      return INITIALSTATE;
     default:
       return state;
   }
@@ -26,7 +23,7 @@ const SingleUser = ({ selected, fetchData }) => {
   const [user, setUser] = useState(null);
   const [msg, setMsg] = useState(null);
   const [error, setError] = useState(null);
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, INITIALSTATE);
   const config = useMemo(
     () => ({
       headers: {
@@ -53,8 +50,6 @@ const SingleUser = ({ selected, fetchData }) => {
     getUser();
     setMsg(null);
     setError(null);
-    dispatch({ type: "update_input", payload: { name: "msg", value: null } });
-    dispatch({ type: "update_input", payload: { name: "error", value: null } });
   }, [selected, config]);
 
   const handleUpdate = async (e) => {
@@ -77,10 +72,6 @@ const SingleUser = ({ selected, fetchData }) => {
         data: { message },
       } = await axios.post(url, params, config);
       setMsg(message);
-      dispatch({
-        type: "update_input",
-        payload: { name: "msg", value: message },
-      });
       setUser((prevState) => {
         return { ...prevState, ...params };
       });
