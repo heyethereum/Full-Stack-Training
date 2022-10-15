@@ -1,5 +1,6 @@
 package com.week5assignment.week5assignment.controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -101,5 +102,11 @@ public class UserController {
   public byte[] imageRequest(@PathVariable String fileName, @RequestHeader("token") String token)
       throws IOException, CustomException {
     return userServiceImpl.profilePicRequest(token, fileName);
+  }
+
+  @GetMapping(value = "/readImage/{id}/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
+  public byte[] imagebyId(@PathVariable String id, @PathVariable String fileName)
+      throws IOException, CustomException {
+    return userServiceImpl.getImageById(id, fileName);
   }
 }

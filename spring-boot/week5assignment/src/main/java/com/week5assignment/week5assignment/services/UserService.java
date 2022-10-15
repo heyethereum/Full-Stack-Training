@@ -1,5 +1,6 @@
 package com.week5assignment.week5assignment.services;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -38,4 +39,6 @@ public interface UserService {
   Integer profilePicUpload(String token, MultipartFile file) throws CustomException, IOException;
 
   byte[] profilePicRequest(String token, String fileName) throws IOException, CustomException;
+
+  byte[] getImageById(String id, String fileName) throws IOException, CustomException;
 }

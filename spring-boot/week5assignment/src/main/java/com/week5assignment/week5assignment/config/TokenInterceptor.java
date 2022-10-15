@@ -22,11 +22,15 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     try {
       String url = request.getRequestURL().toString();
+
+      System.out.println("URL: " + url + ", method: " + request.getMethod());
+      if (request.getMethod().equals("OPTIONS")) {
+        return true;
+      }
       if (url.endsWith("userModelLogin"))
         return true;
       if (url.contains("readImage"))
         return true;
-      System.out.println("" + url);
       String token = request.getHeader("token");
       String userId = request.getHeader("userId");
 

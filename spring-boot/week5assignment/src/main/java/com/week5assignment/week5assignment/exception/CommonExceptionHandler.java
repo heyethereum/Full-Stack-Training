@@ -1,5 +1,7 @@
 package com.week5assignment.week5assignment.exception;
 
+import java.io.FileNotFoundException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,5 +28,10 @@ public class CommonExceptionHandler {
   @ExceptionHandler(NumberFormatException.class)
   public ResponseEntity<GeneralResponse> exceptionHandler(NumberFormatException e) {
     return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
+  }
+
+  @ExceptionHandler(FileNotFoundException.class)
+  public ResponseEntity<GeneralResponse> exceptionHandler(FileNotFoundException e) {
+    return ResponseEntity.badRequest().body(new GeneralResponse("File Not found!"));
   }
 }

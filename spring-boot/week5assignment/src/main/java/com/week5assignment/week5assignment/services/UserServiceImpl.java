@@ -1,6 +1,7 @@
 package com.week5assignment.week5assignment.services;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -193,6 +194,12 @@ public class UserServiceImpl implements UserService {
     String claimIdFromToken = (String) checkJWTToken(token).getBody().get("jti");
     FileInputStream input = new FileInputStream(folderPath + claimIdFromToken + "_" + fileName);
 
+    return IOUtils.toByteArray(input);
+  }
+
+  @Override
+  public byte[] getImageById(String id, String fileName) throws IOException, CustomException {
+    FileInputStream input = new FileInputStream(folderPath + id + "_" + fileName);
     return IOUtils.toByteArray(input);
   }
 }
