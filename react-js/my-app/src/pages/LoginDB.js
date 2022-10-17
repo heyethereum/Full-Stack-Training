@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 
 const LoginDB = () => {
@@ -9,7 +10,8 @@ const LoginDB = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const emailRef = useRef(null);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const LoginDB = () => {
     const { email, password } = login;
 
     if (!email || !password) return;
-    const url = `http://localhost:5678/week5Assignment/userModelLogin`;
+    const url = `${BASE_URL}/userModelLogin`;
     const params = login;
     try {
       const response = await axios.post(url, params);
@@ -30,9 +32,12 @@ const LoginDB = () => {
       setError(error.response?.data?.message);
     }
   };
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
 
   useEffect(() => {
-    setError();
+    setError(null);
   }, [login]);
 
   return (
@@ -47,6 +52,7 @@ const LoginDB = () => {
             type="text"
             className="form-input"
             id="email"
+            ref={emailRef}
             onChange={(e) =>
               setLogin((prevState) => {
                 return { ...prevState, email: e.target.value };

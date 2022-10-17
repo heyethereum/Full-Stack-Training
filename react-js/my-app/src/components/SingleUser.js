@@ -1,14 +1,9 @@
 import React, { useEffect, useReducer } from "react";
 import axios from "axios";
-import { config, reducer } from "../utils/reducer";
+import { reducer, INITIAL_STATE } from "../utils/reducer";
 import useAuth from "../hooks/useAuth";
+import { config } from "../api/axios";
 
-export const INITIAL_STATE = {
-  form: { name: "", email: "", password: "", phone: "", address: "" },
-  msg: null,
-  error: null,
-  user: null,
-};
 const SingleUser = ({ selected, fetchData }) => {
   const { auth } = useAuth();
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);

@@ -1,11 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
+import useAuth from "../hooks/useAuth";
 
 const StyledNavbar = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  useEffect(() => {
-    if (localStorage.getItem("localeStorage")) setIsLogin(true);
-  }, []);
+  const { auth } = useAuth();
 
   return (
     <nav className="navbar">
@@ -27,9 +24,15 @@ const StyledNavbar = () => {
       >
         Login
       </NavLink>
-      {isLogin && (
+      <NavLink
+        to="/updateDeleteDB"
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
+      >
+        Update/Delete
+      </NavLink>
+      {auth?.token && (
         <NavLink
-          to="/login"
+          to="/logout"
           className={({ isActive }) =>
             isActive ? "link active title" : "link"
           }
@@ -37,12 +40,6 @@ const StyledNavbar = () => {
           Logout
         </NavLink>
       )}
-      <NavLink
-        to="/updateDeleteDB"
-        className={({ isActive }) => (isActive ? "link active title" : "link")}
-      >
-        Update/Delete
-      </NavLink>
     </nav>
   );
 };

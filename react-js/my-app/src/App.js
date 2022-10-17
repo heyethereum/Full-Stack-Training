@@ -20,6 +20,7 @@ import Register from "./pages/Register";
 import LoginDB from "./pages/LoginDB";
 import UpdateDeleteDB from "./pages/UpdateDeleteDB";
 import RequireAuth from "./components/RequireAuth";
+import Logout from "./pages/Logout";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login></Login>} />
           <Route path="/loginDB" element={<LoginDB />} />
+          <Route path="/logout" element={<Logout />} />
 
           <Route path="/products" element={<SharedProductLayout />}>
             <Route index element={<Products />} />
