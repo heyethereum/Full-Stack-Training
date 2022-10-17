@@ -1,7 +1,6 @@
 package com.week5assignment.week5assignment.services;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -128,8 +127,12 @@ public class UserServiceImpl implements UserService {
         .compact();
   }
 
-  public Jws<Claims> checkJWTToken(String token) throws CustomException {
+  public Jws<Claims> checkJWTToken(String token) {
     return Jwts.parser().setSigningKey(env.getProperty("JWT_SECRET")).parseClaimsJws(token);
+  }
+
+  public Long getIdByToken(String token) throws NumberFormatException {
+    return Long.valueOf((String) checkJWTToken(token).getBody().get("jti"));
   }
 
   @Override
@@ -164,7 +167,7 @@ public class UserServiceImpl implements UserService {
   public boolean validateToken(String token, Long id) throws CustomException {
     UserModel user = findUserModelById(id);
     if (!user.getToken().equals(token))
-      throw new CustomException("Token mismatch");
+      throw new CustomException("Token mismatch!");
     return true;
   }
 
@@ -174,25 +177,21 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public Integer profilePicUpload(String token, MultipartFile file) throws CustomException, IOException {
-    Jws<Claims> claim = checkJWTToken(token);
-    Long claimIdFromToken = Long.valueOf((String) claim.getBody().get("jti"));
-    validateToken(token, claimIdFromToken);
-
-    String fileName = claimIdFromToken + "_" + file.getOriginalFilename();
+  public Integer profilePicUpload(Long id, MultipartFile file) throws CustomException, IOException {
+    String fileName = id + "_" + file.getOriginalFilename();
 
     try (FileOutputStream out = new FileOutputStream(folderPath + fileName)) {
       out.write(file.getBytes());
     } catch (IOException e) {
       throw new CustomException(e.getMessage());
     }
-    return userRepo.updateProfilepicForUserId(fileName, claimIdFromToken);
+    return userRepo.updateProfilepicForUserId(fileName, id);
   }
 
+  // user only able to request image of own uploads
   @Override
-  public byte[] profilePicRequest(String token, String fileName) throws IOException, CustomException {
-    String claimIdFromToken = (String) checkJWTToken(token).getBody().get("jti");
-    FileInputStream input = new FileInputStream(folderPath + claimIdFromToken + "_" + fileName);
+  public byte[] profilePicRequest(Long id, String fileName) throws IOException, CustomException {
+    FileInputStream input = new FileInputStream(folderPath + id + "_" + fileName);
 
     return IOUtils.toByteArray(input);
   }

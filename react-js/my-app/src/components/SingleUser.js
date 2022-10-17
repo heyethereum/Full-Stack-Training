@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from "react";
 import axios from "axios";
-import { config, reducer } from "../utils/util";
+import { config, reducer } from "../utils/reducer";
+import useAuth from "../hooks/useAuth";
 
 export const INITIAL_STATE = {
   form: { name: "", email: "", password: "", phone: "", address: "" },
@@ -9,6 +10,7 @@ export const INITIAL_STATE = {
   user: null,
 };
 const SingleUser = ({ selected, fetchData }) => {
+  const { auth } = useAuth();
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const handleFormChange = (e) => {
     setState("form", { ...state.form, [e.target.name]: e.target.value });
@@ -19,13 +21,16 @@ const SingleUser = ({ selected, fetchData }) => {
   useEffect(() => {
     const url = `http://localhost:5678/week5Assignment/userModel/` + selected;
     const getUser = async () => {
-      const { data: userData } = await axios.get(url, config);
+      const { data: userData } = await axios.get(
+        url,
+        config({ token: auth.token })
+      );
       setState("user", userData);
     };
     getUser();
     setState("msg", null);
     setState("error", null);
-  }, [selected]);
+  }, [selected, auth?.token]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -45,7 +50,7 @@ const SingleUser = ({ selected, fetchData }) => {
       console.log(params);
       const {
         data: { message },
-      } = await axios.post(url, params, config);
+      } = await axios.post(url, params, config({ token: auth.token }));
       setState("msg", message);
       setState("user", { ...state.user, ...params });
       fetchData();
@@ -66,7 +71,7 @@ const SingleUser = ({ selected, fetchData }) => {
       const params = { id: selected };
       const {
         data: { message },
-      } = await axios.post(url, params, config);
+      } = await axios.post(url, params, config({ token: auth.token }));
       setState("msg", message);
     } catch (error) {
       setState("error", error.response.data.message);

@@ -1,6 +1,5 @@
 package com.week5assignment.week5assignment.controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -68,8 +67,8 @@ public class UserController {
 
   @PostMapping("/userModelLogout")
   public ResponseEntity<GeneralResponse> userModelLogout(@RequestHeader("token") String token) throws CustomException {
-    Long claimIdFromToken = Long.valueOf((String) userServiceImpl.checkJWTToken(token).getBody().get("jti"));
-    userServiceImpl.logout(claimIdFromToken);
+    Long id = userServiceImpl.getIdByToken(token);
+    userServiceImpl.logout(id);
     return ResponseEntity.ok(new GeneralResponse("Logout success!"));
   }
 
@@ -95,14 +94,17 @@ public class UserController {
   @PostMapping("/imageupload")
   public ResponseEntity<GeneralResponse> imageUpload(@RequestParam MultipartFile file,
       @RequestHeader("token") String token) throws CustomException, IOException {
-    userServiceImpl.profilePicUpload(token, file);
+    Long userId = userServiceImpl.getIdByToken(token);
+    userServiceImpl.profilePicUpload(userId, file);
     return ResponseEntity.ok(new GeneralResponse("File uploaded: " + file.getOriginalFilename()));
   }
 
+  // user only able to request image of own uploads
   @GetMapping(value = "readImage/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
   public byte[] imageRequest(@PathVariable String fileName, @RequestHeader("token") String token)
       throws IOException, CustomException {
-    return userServiceImpl.profilePicRequest(token, fileName);
+    Long userId = userServiceImpl.getIdByToken(token);
+    return userServiceImpl.profilePicRequest(userId, fileName);
   }
 
   @GetMapping(value = "/readImage/{id}/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)

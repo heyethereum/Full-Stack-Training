@@ -1,8 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
-const LoginDB = ({ setUser }) => {
+const LoginDB = () => {
+  const { setAuth } = useAuth();
   const [login, setLogin] = useState({
     email: "",
     password: "",
@@ -21,15 +23,17 @@ const LoginDB = ({ setUser }) => {
     try {
       const response = await axios.post(url, params);
 
-      const { name, address, phone, token, id } = response.data;
-      setUser({ name, email, address, phone });
-      localStorage.setItem("token", token);
-      localStorage.setItem("userid", id);
+      const { name, address, phone, token } = response?.data;
+      setAuth({ name, email, address, phone, token });
       navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message);
     }
   };
+
+  useEffect(() => {
+    setError();
+  }, [login]);
 
   return (
     <section className="section">

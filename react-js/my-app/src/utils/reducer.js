@@ -1,9 +1,10 @@
-export const config = {
-  headers: {
-    "Content-Type": "application/json",
-    userid: localStorage.getItem("userid"),
-    token: localStorage.getItem("token"),
-  },
+export const config = ({ token }) => {
+  return {
+    headers: {
+      "Content-Type": "application/json",
+      token: token,
+    },
+  };
 };
 export const reducer = (state, action) => {
   switch (action.type) {

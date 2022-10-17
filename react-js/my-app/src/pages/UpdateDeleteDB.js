@@ -1,22 +1,24 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import SingleUser from "../components/SingleUser";
-import { config } from "../utils/util";
+import { config } from "../utils/reducer";
+import useAuth from "../hooks/useAuth";
 
 const UpdateDeleteDB = () => {
+  const { auth } = useAuth();
   const [users, setUsers] = useState(null);
   const [selected, setSelected] = useState(null);
   const url = "http://localhost:5678/week5Assignment/userModel";
 
   const fetchData = useCallback(async () => {
     try {
-      const { data: dbUsers } = await axios(url, config);
+      const { data: dbUsers } = await axios(url, config({ token: auth.token }));
       setUsers(dbUsers);
       if (!selected) setSelected(dbUsers[0].id);
     } catch (error) {
       console.log(error);
     }
-  }, [selected]);
+  }, [selected, auth.token]);
 
   useEffect(() => {
     fetchData();

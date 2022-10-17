@@ -32,16 +32,11 @@ public class TokenInterceptor implements HandlerInterceptor {
       if (url.contains("readImage"))
         return true;
       String token = request.getHeader("token");
-      String userId = request.getHeader("userId");
 
       if (token == null || token.isEmpty())
         throw new CustomException("please send the token");
 
-      if (userId == null || userId.isEmpty())
-        throw new CustomException("please send the userId");
-
-      Long id = Long.parseLong(userId);
-      userServiceImpl.checkJWTToken(token);
+      Long id = userServiceImpl.getIdByToken(token);
 
       return (userServiceImpl.validateToken(token, id));
     } catch (NumberFormatException e) {

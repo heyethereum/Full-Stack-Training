@@ -36,9 +36,9 @@ public interface UserService {
 
   Integer logout(Long id);
 
-  Integer profilePicUpload(String token, MultipartFile file) throws CustomException, IOException;
+  Integer profilePicUpload(Long id, MultipartFile file) throws CustomException, IOException;
 
-  byte[] profilePicRequest(String token, String fileName) throws IOException, CustomException;
+  byte[] profilePicRequest(Long id, String fileName) throws IOException, CustomException;
 
   byte[] getImageById(String id, String fileName) throws IOException, CustomException;
 }
