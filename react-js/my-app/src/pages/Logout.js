@@ -21,10 +21,11 @@ const Logout = () => {
         );
         console.log(message);
         setAuth({});
+        localStorage.removeItem("token");
         setLoading(false);
       } catch (err) {
-        console.log(err);
-        setError(err);
+        console.log(err.data);
+        setError(err.data);
       }
     };
     if (auth.token) logout();

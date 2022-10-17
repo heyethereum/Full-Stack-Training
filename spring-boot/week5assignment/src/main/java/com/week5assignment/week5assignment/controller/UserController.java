@@ -1,9 +1,13 @@
 package com.week5assignment.week5assignment.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.week5assignment.week5assignment.Request.UserRequest;
 import com.week5assignment.week5assignment.Response.GeneralResponse;
 import com.week5assignment.week5assignment.exception.CustomException;
@@ -23,11 +30,17 @@ import com.week5assignment.week5assignment.model.User;
 import com.week5assignment.week5assignment.model.UserModel;
 import com.week5assignment.week5assignment.services.UserServiceImpl;
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+
 @RestController
 @RequestMapping("/week5Assignment")
 public class UserController {
   @Autowired
   UserServiceImpl userServiceImpl;
+
+  @Autowired
+  RestTemplate restTemplate;
 
   @GetMapping("/userModel")
   public ResponseEntity<List<UserModel>> getUsers() throws Exception {
@@ -111,5 +124,30 @@ public class UserController {
   public byte[] imagebyId(@PathVariable String id, @PathVariable String fileName)
       throws IOException, CustomException {
     return userServiceImpl.getImageById(id, fileName);
+  }
+
+  @GetMapping("/listPartyAPI")
+  public ResponseEntity<?> getUsersFrom3rdPartyAPI() throws Exception {
+    try {
+      HttpHeaders headers = new HttpHeaders();
+      headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+      headers.add("user-agent", "Application");
+      // headers.add("auth-token", "some-bearer-token");
+      HttpEntity<String> entity = new HttpEntity<String>(headers);
+
+      String response = restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, entity,
+          String.class).getBody();
+      Gson g = new Gson();
+      JSONObject p = g.fromJson(response, JSONObject.class);
+      System.out.println(p);
+      System.out.println(p.get("data")); // array
+      // JSONArray ar = (JSONArray) p.get("data");
+      // System.out.println(ar);
+
+      // System.out.println(response.getData());
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }

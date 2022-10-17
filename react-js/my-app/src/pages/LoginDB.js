@@ -27,6 +27,7 @@ const LoginDB = () => {
 
       const { name, address, phone, token } = response?.data;
       setAuth({ name, email, address, phone, token });
+      localStorage.setItem("token", token);
       navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message);
