@@ -1,7 +1,9 @@
 package com.week5assignment.week5assignment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,8 +118,8 @@ public class UserController {
   @GetMapping(value = "readImage/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
   public byte[] imageRequest(@PathVariable String fileName, @RequestHeader("token") String token)
       throws IOException, CustomException {
-    Long userId = userServiceImpl.getIdByToken(token);
-    return userServiceImpl.profilePicRequest(userId, fileName);
+    String userId = String.valueOf(userServiceImpl.getIdByToken(token));
+    return userServiceImpl.getImageById(userId, fileName);
   }
 
   @GetMapping(value = "/readImage/{id}/{fileName}", produces = MediaType.IMAGE_PNG_VALUE)
@@ -141,6 +143,9 @@ public class UserController {
       JSONObject p = g.fromJson(response, JSONObject.class);
       System.out.println(p);
       System.out.println(p.get("data")); // array
+      // TODO:: check how to iterate this array and extract the value
+      // System.out.println(data);
+
       // JSONArray ar = (JSONArray) p.get("data");
       // System.out.println(ar);
 

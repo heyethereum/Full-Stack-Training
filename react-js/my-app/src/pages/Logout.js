@@ -30,6 +30,7 @@ const Logout = () => {
     };
     if (auth.token) logout();
   }, [auth?.token, setAuth]);
+
   return (
     <>
       {loading ? (

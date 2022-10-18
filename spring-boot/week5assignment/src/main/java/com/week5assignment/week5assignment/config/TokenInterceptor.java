@@ -10,6 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.week5assignment.week5assignment.exception.CustomException;
+import com.week5assignment.week5assignment.exception.UnauthorizedException;
 import com.week5assignment.week5assignment.services.UserServiceImpl;
 
 @Configuration
@@ -42,7 +43,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     } catch (NumberFormatException e) {
       throw new CustomException("Wrong user Id format");
     } catch (Exception e) {
-      throw new CustomException(e.getMessage());
+      throw new UnauthorizedException(e.getMessage());
     }
   }
 

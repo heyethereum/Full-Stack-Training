@@ -38,7 +38,5 @@ public interface UserService {
 
   Integer profilePicUpload(Long id, MultipartFile file) throws CustomException, IOException;
 
-  byte[] profilePicRequest(Long id, String fileName) throws IOException, CustomException;
-
   byte[] getImageById(String id, String fileName) throws IOException, CustomException;
 }

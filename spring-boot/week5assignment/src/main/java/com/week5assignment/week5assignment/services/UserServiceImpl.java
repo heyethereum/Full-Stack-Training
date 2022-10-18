@@ -188,14 +188,6 @@ public class UserServiceImpl implements UserService {
     return userRepo.updateProfilepicForUserId(fileName, id);
   }
 
-  // user only able to request image of own uploads
-  @Override
-  public byte[] profilePicRequest(Long id, String fileName) throws IOException, CustomException {
-    FileInputStream input = new FileInputStream(folderPath + id + "_" + fileName);
-
-    return IOUtils.toByteArray(input);
-  }
-
   @Override
   public byte[] getImageById(String id, String fileName) throws IOException, CustomException {
     FileInputStream input = new FileInputStream(folderPath + id + "_" + fileName);
