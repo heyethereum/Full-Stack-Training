@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const BASE_URL = "http://localhost:5678/week5Assignment";
 export const config = ({ token }) => {
   return {
@@ -13,3 +15,7 @@ export const headers = ({ token }) => {
     token: token,
   };
 };
+
+export default axios.create({
+  baseURL: BASE_URL,
+});

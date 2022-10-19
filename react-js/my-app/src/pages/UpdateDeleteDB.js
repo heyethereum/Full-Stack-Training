@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import SingleUser from "../components/SingleUser";
-import { config, BASE_URL } from "../api/axios";
+import axios, { config } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 
 const UpdateDeleteDB = () => {
@@ -12,7 +11,7 @@ const UpdateDeleteDB = () => {
   const fetchData = useCallback(async () => {
     try {
       const { data: dbUsers } = await axios.get(
-        `${BASE_URL}/userModel`,
+        `/userModel`,
         config({ token: auth.token })
       );
       setUsers(dbUsers);

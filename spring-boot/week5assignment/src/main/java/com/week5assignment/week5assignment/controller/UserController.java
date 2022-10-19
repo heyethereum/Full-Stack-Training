@@ -6,11 +6,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,8 +81,18 @@ public class UserController {
   }
 
   @PostMapping("/userModelLogin")
-  public ResponseEntity<UserModel> userModelLogin(@RequestBody UserRequest userRequest) throws CustomException {
-    return ResponseEntity.ok(userServiceImpl.userLogin(userRequest.getEmail(), userRequest.getPassword()));
+  public ResponseEntity<UserModel> userModelLogin(@RequestBody UserRequest userRequest, HttpServletResponse response)
+      throws CustomException {
+    UserModel user = userServiceImpl.userLogin(userRequest.getEmail(), userRequest.getPassword());
+
+    Cookie cookie = new Cookie("token", user.getToken());
+    cookie.setMaxAge(24 * 60 * 60);
+    cookie.setSecure(true);
+    cookie.setHttpOnly(true);
+    cookie.setPath("/");
+    response.addCookie(cookie);
+
+    return ResponseEntity.ok(user);
   }
 
   @PostMapping("/userModelLogout")

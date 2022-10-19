@@ -1,8 +1,7 @@
 import React, { useEffect, useReducer } from "react";
-import axios from "axios";
 import { reducer, INITIAL_STATE } from "../utils/reducer";
 import useAuth from "../hooks/useAuth";
-import { config, BASE_URL } from "../api/axios";
+import axios, { config } from "../api/axios";
 
 const SingleUser = ({ selected, fetchData }) => {
   const { auth } = useAuth();
@@ -14,7 +13,7 @@ const SingleUser = ({ selected, fetchData }) => {
     dispatch({ type: "update_input", key: key, value: value });
   };
   useEffect(() => {
-    const url = `${BASE_URL}/userModel/` + selected;
+    const url = `/userModel/` + selected;
     const getUser = async () => {
       const { data: userData } = await axios.get(
         url,
@@ -40,7 +39,7 @@ const SingleUser = ({ selected, fetchData }) => {
     if (Object.keys(params).length === 0) return;
 
     try {
-      const url = `${BASE_URL}/userModelUpdate`;
+      const url = `/userModelUpdate`;
       params = { ...params, id: parseInt(selected) };
       console.log(params);
       const {
@@ -62,7 +61,7 @@ const SingleUser = ({ selected, fetchData }) => {
     setState("msg", null);
     setState("error", null);
     try {
-      const url = `${BASE_URL}/userModelDelete`;
+      const url = `/userModelDelete`;
       const params = { id: selected };
       const {
         data: { message },

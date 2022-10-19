@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(
     { token: localStorage.getItem("token") } || {}
   );
-  console.log("Auth Provider:", auth?.token);
+  console.log("Auth Provider:--", auth?.token);
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
