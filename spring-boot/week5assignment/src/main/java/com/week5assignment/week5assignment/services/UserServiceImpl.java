@@ -87,12 +87,14 @@ public class UserServiceImpl implements UserService {
     if (email.isPresent())
       throw new CustomException("Email already exists");
 
-    UserModel newUser = new UserModel();
-    newUser.setName(userRequest.getName());
-    newUser.setEmail(userRequest.getEmail());
-    newUser.setPhone(userRequest.getPhone());
-    newUser.setAddress(userRequest.getAddress());
-    newUser.setPassword(userRequest.getPassword());
+    UserModel newUser = UserModel.builder()
+        .name(userRequest.getName())
+        .email(userRequest.getEmail())
+        .phone(userRequest.getPhone())
+        .address(userRequest.getAddress())
+        .password(userRequest.getPassword())
+        .build();
+
     userRepo.save(newUser);
 
     return true;
