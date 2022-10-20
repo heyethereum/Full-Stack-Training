@@ -1,9 +1,7 @@
 package com.week5assignment.week5assignment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -13,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,7 +27,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.week5assignment.week5assignment.Request.UserRequest;
 import com.week5assignment.week5assignment.Response.GeneralResponse;
 import com.week5assignment.week5assignment.exception.CustomException;
@@ -37,7 +34,6 @@ import com.week5assignment.week5assignment.model.User;
 import com.week5assignment.week5assignment.model.UserModel;
 import com.week5assignment.week5assignment.services.UserServiceImpl;
 
-import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 
 @RestController
@@ -51,6 +47,7 @@ public class UserController {
 
   @GetMapping("/userModel")
   public ResponseEntity<List<UserModel>> getUsers() throws Exception {
+
     return ResponseEntity.ok(userServiceImpl.getallUsers());
   }
 
@@ -84,14 +81,11 @@ public class UserController {
   public ResponseEntity<UserModel> userModelLogin(@RequestBody UserRequest userRequest, HttpServletResponse response)
       throws CustomException {
     UserModel user = userServiceImpl.userLogin(userRequest.getEmail(), userRequest.getPassword());
-
-    Cookie cookie = new Cookie("token", user.getToken());
-    cookie.setMaxAge(24 * 60 * 60);
-    cookie.setSecure(true);
-    cookie.setHttpOnly(true);
-    cookie.setPath("/");
-    response.addCookie(cookie);
-
+    // order matters here as Refresh token is first set into database
+    response.addHeader(HttpHeaders.SET_COOKIE, userServiceImpl.generateHttpOnlyCookie(user.getToken()));
+    // generate access token and send access token to user
+    String accessToken = userServiceImpl.generateToken(user, 0, 5);
+    // user.setToken(accessToken);
     return ResponseEntity.ok(user);
   }
 

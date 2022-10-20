@@ -1,7 +1,6 @@
-import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../api/axios";
+import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 
 const LoginDB = () => {
@@ -20,7 +19,7 @@ const LoginDB = () => {
     const { email, password } = login;
 
     if (!email || !password) return;
-    const url = `${BASE_URL}/userModelLogin`;
+    const url = `/userModelLogin`;
     const params = login;
     try {
       const response = await axios.post(url, params);

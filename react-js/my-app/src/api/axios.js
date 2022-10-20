@@ -18,4 +18,5 @@ export const headers = ({ token }) => {
 
 export default axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
 });

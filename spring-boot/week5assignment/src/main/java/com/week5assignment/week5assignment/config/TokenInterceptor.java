@@ -1,5 +1,7 @@
 package com.week5assignment.week5assignment.config;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,9 +35,15 @@ public class TokenInterceptor implements HandlerInterceptor {
       if (url.contains("readImage"))
         return true;
       String token = request.getHeader("token");
+      String refreshToken = userServiceImpl.readServletCookie(request, "refreshToken");
+      System.out.println("refresh token: " + refreshToken);
+
+      if (refreshToken == null || refreshToken.isEmpty()) {
+        throw new UnauthorizedException("No refresh token");
+      }
 
       if (token == null || token.isEmpty())
-        throw new CustomException("please send the token");
+        throw new UnauthorizedException("please send the token");
 
       Long id = userServiceImpl.getIdByToken(token);
 
@@ -43,7 +51,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     } catch (NumberFormatException e) {
       throw new CustomException("Wrong user Id format");
     } catch (Exception e) {
-      throw new UnauthorizedException(e.getMessage());
+      throw new Exception(e.getMessage());
     }
   }
 

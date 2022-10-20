@@ -3,14 +3,18 @@ package com.week5assignment.week5assignment.services;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseCookie;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,7 +108,7 @@ public class UserServiceImpl implements UserService {
   public UserModel userLogin(String email, String password) throws CustomException {
     UserModel user = userRepo.getUserByEmailAndPassword(email, password)
         .orElseThrow(() -> new CustomException("Wrong email or password!"));
-    String token = generateToken(user);
+    String token = generateToken(user, 48, 0);
     updateToken(token, user.getId());
     user.setToken(token);
     return user;
@@ -115,10 +119,13 @@ public class UserServiceImpl implements UserService {
     return userRepo.updateTokenForUserId(token, id);
   }
 
-  private String generateToken(UserModel user) {
+  public String generateToken(UserModel user, int hour, int minute) {
     Calendar c = Calendar.getInstance();
-    c.add(Calendar.DAY_OF_YEAR, 10);
+    // c.add(Calendar.DAY_OF_YEAR, 10);
     // c.add(Calendar.SECOND, 5);
+    c.add(Calendar.MINUTE, minute);
+    c.add(Calendar.HOUR, hour);
+
     return Jwts.builder()
         .claim("email", user.getEmail())
         .setSubject(user.getName())
@@ -135,6 +142,26 @@ public class UserServiceImpl implements UserService {
 
   public Long getIdByToken(String token) throws NumberFormatException {
     return Long.valueOf((String) checkJWTToken(token).getBody().get("jti"));
+  }
+
+  public String readServletCookie(HttpServletRequest request, String name) {
+    return Arrays.stream(request.getCookies())
+        .filter(cookie -> name.equals(cookie.getName()))
+        .map(Cookie::getValue)
+        .findAny()
+        .orElse(null);
+  }
+
+  public String generateHttpOnlyCookie(String token) {
+    ResponseCookie responseCookie = ResponseCookie
+        .from("refreshToken", token)
+        .httpOnly(true)
+        .maxAge(24 * 60 * 60L)
+        .sameSite("None")
+        .secure(true)
+        .path("/")
+        .build();
+    return responseCookie.toString();
   }
 
   @Override
