@@ -34,6 +34,7 @@ public class TokenInterceptor implements HandlerInterceptor {
         return true;
       if (url.contains("readImage"))
         return true;
+
       String token = request.getHeader("token");
       String refreshToken = userServiceImpl.readServletCookie(request, "refreshToken");
       System.out.println("refresh token: " + refreshToken);
@@ -42,12 +43,15 @@ public class TokenInterceptor implements HandlerInterceptor {
         throw new UnauthorizedException("No refresh token");
       }
 
+      if (url.contains("refreshtoken")) {
+        return true;
+      }
       if (token == null || token.isEmpty())
-        throw new UnauthorizedException("please send the token");
+        throw new UnauthorizedException("please send access token");
 
       Long id = userServiceImpl.getIdByToken(token);
 
-      return (userServiceImpl.validateToken(token, id));
+      return (userServiceImpl.validateToken(refreshToken, id));
     } catch (NumberFormatException e) {
       throw new CustomException("Wrong user Id format");
     } catch (Exception e) {

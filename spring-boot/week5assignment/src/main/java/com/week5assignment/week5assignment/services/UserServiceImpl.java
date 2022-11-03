@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
   public UserModel userLogin(String email, String password) throws CustomException {
     UserModel user = userRepo.getUserByEmailAndPassword(email, password)
         .orElseThrow(() -> new CustomException("Wrong email or password!"));
-    String token = generateToken(user, 48, 0);
+    String token = generateToken(user, 24, 0);
     updateToken(token, user.getId());
     user.setToken(token);
     return user;

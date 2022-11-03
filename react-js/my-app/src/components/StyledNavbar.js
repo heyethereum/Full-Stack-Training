@@ -30,6 +30,12 @@ const StyledNavbar = () => {
       >
         Update/Delete
       </NavLink>
+      <NavLink
+        to="/httponlycookie"
+        className={({ isActive }) => (isActive ? "link active title" : "link")}
+      >
+        Refresh Token
+      </NavLink>
       {auth?.token && (
         <NavLink
           to="/logout"

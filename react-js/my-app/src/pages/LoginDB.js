@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../api/axios";
 import useAuth from "../hooks/useAuth";
 
@@ -9,6 +9,9 @@ const LoginDB = () => {
     email: "",
     password: "",
   });
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const emailRef = useRef(null);
   const [error, setError] = useState(null);
 
@@ -26,8 +29,7 @@ const LoginDB = () => {
 
       const { name, address, phone, token } = response?.data;
       setAuth({ name, email, address, phone, token });
-      localStorage.setItem("token", token);
-      navigate("/dashboard");
+      navigate(from, { replace: true });
     } catch (error) {
       setError(error.response?.data?.message);
     }

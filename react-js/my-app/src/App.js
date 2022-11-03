@@ -21,6 +21,8 @@ import LoginDB from "./pages/LoginDB";
 import UpdateDeleteDB from "./pages/UpdateDeleteDB";
 import RequireAuth from "./components/RequireAuth";
 import Logout from "./pages/Logout";
+import HttpOnlyCookie from "./components/HttpOnlyCookie";
+import PersistLogin from "./components/PersistLogin";
 
 function App() {
   return (
@@ -46,10 +48,12 @@ function App() {
             <Route index element={<Products />} />
             <Route path=":productId" element={<SingleProduct />} />
           </Route>
-
-          <Route element={<RequireAuth />}>
-            <Route path="/updateDeleteDB" element={<UpdateDeleteDB />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth />}>
+              <Route path="/httponlycookie" element={<HttpOnlyCookie />} />
+              <Route path="/updateDeleteDB" element={<UpdateDeleteDB />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Error />} />

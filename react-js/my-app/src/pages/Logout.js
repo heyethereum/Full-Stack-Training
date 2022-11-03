@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { BASE_URL, config } from "../api/axios";
+import axios, { BASE_URL, config } from "../api/axios";
 import useAuth from "../hooks/useAuth";
 
 const Logout = () => {
@@ -21,10 +20,9 @@ const Logout = () => {
         );
         console.log(message);
         setAuth({});
-        localStorage.removeItem("token");
         setLoading(false);
       } catch (err) {
-        console.log(err.data);
+        console.log("Logout Error:", err.data);
         setError(err.data);
       }
     };

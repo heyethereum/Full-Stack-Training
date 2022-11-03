@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,14 +85,27 @@ public class UserController {
     // order matters here as Refresh token is first set into database
     response.addHeader(HttpHeaders.SET_COOKIE, userServiceImpl.generateHttpOnlyCookie(user.getToken()));
     // generate access token and send access token to user
-    String accessToken = userServiceImpl.generateToken(user, 0, 5);
-    // user.setToken(accessToken);
+    String accessToken = userServiceImpl.generateToken(user, 0, 1);
+    user.setToken(accessToken);
+    return ResponseEntity.ok(user);
+  }
+
+  @GetMapping("/refreshtoken")
+  public ResponseEntity<UserModel> refreshToken(HttpServletRequest request, HttpServletResponse response)
+      throws CustomException {
+    String refreshToken = userServiceImpl.readServletCookie(request, "refreshToken");
+    Long id = userServiceImpl.getIdByToken(refreshToken);
+    UserModel user = userServiceImpl.findUserModelById(id);
+    response.addHeader(HttpHeaders.SET_COOKIE, userServiceImpl.generateHttpOnlyCookie(user.getToken()));
+    String accessToken = userServiceImpl.generateToken(user, 0, 1);
+    user.setToken(accessToken);
     return ResponseEntity.ok(user);
   }
 
   @PostMapping("/userModelLogout")
   public ResponseEntity<GeneralResponse> userModelLogout(@RequestHeader("token") String token) throws CustomException {
     Long id = userServiceImpl.getIdByToken(token);
+    System.out.println("logout: " + id);
     userServiceImpl.logout(id);
     return ResponseEntity.ok(new GeneralResponse("Logout success!"));
   }

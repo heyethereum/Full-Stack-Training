@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SingleUser from "../components/SingleUser";
-import axios, { config } from "../api/axios";
+import { config } from "../api/axios";
 import useAuth from "../hooks/useAuth";
+import useAxiosPrivate from "../hooks/useAxiosPrivate";
 
 const UpdateDeleteDB = () => {
   const { auth } = useAuth();
+  const axiosPrivate = useAxiosPrivate();
   const [users, setUsers] = useState(null);
   const [selected, setSelected] = useState(null);
 
   const fetchData = useCallback(async () => {
     try {
-      const { data: dbUsers } = await axios.get(
+      const { data: dbUsers } = await axiosPrivate.get(
         `/userModel`,
         config({ token: auth.token })
       );
@@ -19,11 +21,12 @@ const UpdateDeleteDB = () => {
     } catch (error) {
       console.log("Error in fetching:", error);
     }
-  }, [selected, auth.token]);
+  }, [selected, auth?.token, axiosPrivate]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+    console.log("Access Token:", auth?.token);
+  }, [fetchData, auth?.token]);
 
   console.log(users);
   return (
